@@ -1,1 +1,1 @@
-print( "Fuck" );
+print( "Frick" );
