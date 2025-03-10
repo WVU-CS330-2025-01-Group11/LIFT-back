@@ -6,12 +6,12 @@ let launches = new Array();
 
     parameter:  Object inputLaunch {
     
-                        String name
-                        number date
-                        number time
-                        List<String> parameterNames
-                        List<number> parameterValues
-                    }
+                    String name
+                    number date
+                    number time
+                    List<String> parameterNames
+                    List<number> parameterValues
+                }
 
     purpose:    creates a new Launch data object.
                 executes rank() on that Launch
@@ -20,14 +20,14 @@ let launches = new Array();
     returns:    0: failure
                 1: success
 */
-function createNewLaunch( inputLaunch ) {
+function createLaunch( inputLaunch ) {
 
     var newLaunch = new Launch( inputLaunch.name,
                                 inputLaunch.date,
                                 inputLaunch.time,
                                 inputLaunch.parameterNames,
                                 inputLaunch.parameterValues );
-    //rank( newLaunch );
+    newLaunch = rank( newLaunch );
     if ( launches.push( newLaunch ) > 0 ) {
 
         return 1;
@@ -35,22 +35,14 @@ function createNewLaunch( inputLaunch ) {
     return 0;    
 }
 
-function updateLaunch( inputLaunch ) {
 
-    //check if the launch exists
-    //if not, return 2
-    //if so, grab the old launch
-    //declare a new launch
-    //for each field in inputLaunch
-        //if the field is empty
-            //put the old field in the new launch
-        //else
-            //put inputLaunch's field in the new launch
-    //delete old launch
-    //add new launch
-    //if launches got bigger
-        //return 1
-    //return 0
+
+//TODO METHOD DOC
+
+/*
+
+*/
+function updateLaunch( inputLaunch ) {
 
     //grab old launch, return an error code if it doesn't exist yet
     var oldLaunch = launches.find( launch => launch.name === inputLaunch.name );
@@ -74,8 +66,10 @@ function updateLaunch( inputLaunch ) {
         }
     } );
 
-    //replace old launch with new launch
-    //TODO: REPLACE OLD LAUNCH WITH NEW LAUNCH
+    //delete old launch, update new launch's rankings, insert new launch
+    deleteLaunch( oldLaunch.name );
+    newLaunch = rank( newLaunch );
+    launches.put( newLaunch );
 }
 
 /*
@@ -87,6 +81,8 @@ function updateLaunch( inputLaunch ) {
                 List<String> parameterNames
                 List<number> parameterValues
                 number[][][] data
+
+    methods:    constructor()
 
     purpose:    stores data about a launch event
 */
@@ -114,6 +110,49 @@ class Launch {
     }
 }
 
+//PLACEHOLDER METHOD
+//assigns input.data = -42 and returns input
+function rank( inputLaunch ) {
 
+    inputLaunch.data = -42;
+    return inputLaunch;
+}
 
+//returns index of the launch in launches if it exists
+//return -1 otherwise
+function getLaunchIndex( inputName ) {
+
+    return launches.findIndex( inputName );
+}
+
+//returns 0 if launch not found
+//returns launch if found
+function readLaunch( inputName ) {
+
+    //guard condition
+    let index = getLaunchIndex( inputName );
+    if ( index == -1 ) {
+
+        return 0;
+    }
+
+    //return the object if it exists
+    return launches[ index ];
+}
+
+//returns 0 if launch not found
+//returns 1 if launch successfully deleted
+function deleteLaunch( inputName ) {
+
+    //check if it exists, throw if not
+    let index = getLaunchIndex( inputName );
+    if ( index == -1 ) {
+
+        return 0;
+    }
+
+    //delete the launch and return 1 if it exists
+    launches.splice( index, 1 );
+    return 1;
+}
 
