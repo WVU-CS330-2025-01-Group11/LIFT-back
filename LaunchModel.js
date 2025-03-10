@@ -48,7 +48,7 @@ function updateLaunch( inputLaunch ) {
     var oldLaunch = launches.find( launch => launch.name === inputLaunch.name );
     if ( oldLaunch == undefined ) {
 
-        return 2;
+        return 0;
     }
 
     //populate the new launch's fields
@@ -66,10 +66,11 @@ function updateLaunch( inputLaunch ) {
         }
     } );
 
-    //delete old launch, update new launch's rankings, insert new launch
+    //delete old launch, update new launch's rankings, insert new launch, return 1
     deleteLaunch( oldLaunch.name );
     newLaunch = rank( newLaunch );
     launches.put( newLaunch );
+    return 1;
 }
 
 /*
