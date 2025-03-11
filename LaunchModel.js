@@ -18,7 +18,7 @@ let launches = new Array();
                 stores the Launch in the database
 
     returns:    0: failure
-                1: success
+                ranked Launch object: success
 */
 function createLaunch( inputLaunch ) {
 
