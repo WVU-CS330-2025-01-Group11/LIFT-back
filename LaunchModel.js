@@ -35,11 +35,24 @@ function createLaunch( inputLaunch ) {
     return 0;    
 }
 
-
-
-//TODO METHOD DOC
-
 /*
+    function:   updateLaunch
+
+    parameter:  Object inputLaunch {
+    
+                    String name
+                    number date
+                    number time
+                    List<String> parameterNames
+                    List<number> parameterValues
+                }
+
+    purpose:    Returns 0 if no launch by the namme of the inputLaunch exists in database
+                Otherwise, updates old launch with new fields. Ranks launch. Returns launch.
+                    
+
+    returns:    0: error
+                Launch: success
 
 */
 function updateLaunch( inputLaunch ) {
@@ -57,20 +70,17 @@ function updateLaunch( inputLaunch ) {
     const inputKeys = inputLaunch.keys();
     inputKeys.foreach( key => {
 
-        if ( inputLaunch[ key ] == undefined ) {
-
-            newLaunch[ key ] = oldLaunch[ key ];
-        } else {
+        if ( inputLaunch[ key ] != undefined ) {
 
             newLaunch[ key ] = inputLaunch[ key ];
         }
     } );
 
-    //delete old launch, update new launch's rankings, insert new launch, return 1
+    //delete old launch, update new launch's rankings, insert new launch, return new launch
     deleteLaunch( oldLaunch.name );
     newLaunch = rank( newLaunch );
     launches.put( newLaunch );
-    return 1;
+    return newLaunch;
 }
 
 /*
@@ -156,4 +166,3 @@ function deleteLaunch( inputName ) {
     launches.splice( index, 1 );
     return 1;
 }
-
