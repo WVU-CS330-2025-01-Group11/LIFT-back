@@ -1,7 +1,7 @@
-
-
 //validate new launch input
-//return launchmodl.createlaunch status code
+//return launchmodl.createlaunch:
+//  0 if fail
+//  Launch if success
 function createLaunch( inputLaunch ) {
 
     if ( isValidLaunch( inputLaunch ) ) {
@@ -10,7 +10,6 @@ function createLaunch( inputLaunch ) {
     }
     return 0;
 }
-
 
 function isValidLaunch( inputLaunch ) {
 
@@ -59,7 +58,7 @@ function readLaunch( inputName ) {
 //parameter: a launch struct with values to update, all other fields undefined
 //return -1 if invalid input
 //return 0 if not found
-//return 1 if successful update
+//return Launch if successful update
 function updateLaunch( inputLaunch ) {
 
     if ( !isValidLaunch( inputLaunch ) ) {
