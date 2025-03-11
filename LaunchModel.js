@@ -30,7 +30,7 @@ function createLaunch( inputLaunch ) {
     newLaunch = rank( newLaunch );
     if ( launches.push( newLaunch ) > 0 ) {
 
-        return 1;
+        return newLaunch;
     } 
     return 0;    
 }
