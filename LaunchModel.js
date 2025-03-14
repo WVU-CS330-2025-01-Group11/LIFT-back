@@ -115,4 +115,3 @@ class LaunchModel {
     }
 }
 
-module.exports = LaunchModel
