@@ -114,4 +114,4 @@ class LaunchModel {
         return 1;
     }
 }
-
+module.exports = LaunchModel;

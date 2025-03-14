@@ -1,5 +1,5 @@
 const LaunchModel = require('./LaunchModel.js');
-const LaunchController = require('./LaunchController.js'); // similar export for LaunchController
+const LaunchController = require('./LaunchController.js');
 
 const model = new LaunchModel();
 const controller = new LaunchController(model);
