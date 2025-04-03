@@ -1,0 +1,56 @@
+.launchSites {
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    border-radius: 8px;
+    margin: 0 auto;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.tabs__above {
+    display: flex; 
+    background: grey;
+    width: 100%; 
+}
+
+.tabs__button {
+    padding: 10px;
+    background: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    flex-grow: 1; 
+    text-align: center; 
+    border-radius: 8px 8px 0 0; 
+    margin-right: 2px; 
+    position: relative; 
+}
+
+    .tabs__button:active {
+        background: #dddddd;
+    }
+
+.tabs__button--active {
+    background-color: #a4aba6;
+    z-index: 1;
+    border-bottom: 2px grey solid;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px 8px 0 0; 
+}
+
+.tabs__content {
+    padding: 15px;
+    font-size: 0.8rem;
+    display: none;
+    border-top: 1px solid #cccccc; /* Border between tabs and content */
+}
+
+.tabs__content--active {
+    display: block;
+}
+
+#submitButton{
+    float: right;
+}
