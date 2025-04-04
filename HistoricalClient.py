@@ -3,7 +3,7 @@ from datetime import datetime
 
 class HistoricalDataClient(APIClient):
     """
-    Client for retrieving historical weather data
+    Client for retrieving historical weather data'
     might delete later if we don't implement what it would be used for
     this will make me sad :(
     """

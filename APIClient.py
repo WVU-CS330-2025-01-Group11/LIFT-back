@@ -15,7 +15,7 @@ class APIClient(ABC):
 
     def _make_request(self, url, params=None, headers=None):
         """
-        Internal method for making HTTP GET requests.
+        Internal method for making HTTP GET requests
         
         Args:
             url (str): Endpoint URL

@@ -18,7 +18,7 @@ class ForecastDataClient(APIClient):
 
     def get_weather_data(self, latitude, longitude):
         """
-        Retrieve forecast data for specific coordinates.
+        Retrieve forecast data for specific coordinates
         
         Args:
             latitude (float): Location latitude

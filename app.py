@@ -21,7 +21,7 @@ def home():
     return jsonify({
         "status": "active",
         "endpoints": {
-            "forecast": "/api/forecast?location=<zip_or_city>",
+            "forecast": "/api/forecast?location=<zip_or_city> ",
             "historical": "/api/historical?location=<id>&date=<yyyy-mm-dd>"
         }
     })
