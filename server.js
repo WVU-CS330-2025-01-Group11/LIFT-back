@@ -8,6 +8,9 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
+const { openSync } = require('fs');
+const { readFileSync } = require('fs');
+
 const corsOptions = {
     origin: ["http://localhost:3001"]
 }
@@ -26,4 +29,15 @@ app.post('/', express.json(), (req, res, next) => {
 
     // var launch_obj = LaunchController.createLaunch(req.body);
     // console.log(launch_obj);
+});
+
+//read '/List of Launch Sites/output.json' and send it to the client
+
+f = openSync('List of Launch Sites/output.json', 'r');
+const data = readFileSync(f);
+const jsonData = JSON.parse(data);
+
+app.get('/sites', (req, res) => {
+    console.log("/sites GET request received");
+    res.send(jsonData);
 });
