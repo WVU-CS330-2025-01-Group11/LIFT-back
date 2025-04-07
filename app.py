@@ -1,53 +1,75 @@
 from flask import Flask, jsonify, request
-from APIClient import APIClient
-# dotenv allows me to use my env file in this file
+from flask_cors import CORS # my plan for getting this on front end
+from ForecastClient import ForecastDataClient
+from HistoricalClient import HistoricalDataClient
 from dotenv import load_dotenv
-# needed for env file as well
 import os
 
-#load environment variables from .env file
+# Initialize app
 load_dotenv()
-
-# initialize flask
 app = Flask(__name__)
+# get cors working
+CORS(app)
 
-# initialize NOAA API client with API key
-noaa_client= APIClient(api_key=os.getenv("NOAA_API_KEY"))
+# Initialize clients
+forecast_client = ForecastDataClient()
+historical_client = HistoricalDataClient(api_key=os.getenv("NOAA_API_KEY"))
 
 @app.route("/")
 def home():
-    return "Welcome to LIFT (BACKEND)"
+    """Root endpoint that confirms the API is running"""
+    return jsonify({
+        "status": "active",
+        "endpoints": {
+            "forecast": "/api/forecast?location=<zip_or_city> ",
+            "historical": "/api/historical?location=<id>&date=<yyyy-mm-dd>"
+        }
+    })
 
-@app.route("/api/wind-data", methods=["GET"])
-def get_wind_data():
+# forecast route
+@app.route("/api/forecast", methods=["GET"])
+def get_forecast():
     """
-    Endpoint to fetch wind data from the NOAA API.
-    
-    Query Parameters:
-        locationId (str): The location ID (e.g., ZIP code or station ID).
-        startDate (str): The start date in YYYY-MM-DD format.
-        endDate (str): The end date in YYYY-MM-DD format.
-    
-    Returns:
-        JSON: Wind data or an error message.
+    Get forecast by location (ZIP or City,State)
+    Example: /api/forecast?location=princeton,nj
     """
-    # Get query parameters from the request.
-    location_id = request.args.get("locationId")
-    start_date = request.args.get("startDate")
-    end_date = request.args.get("endDate")
+    location = request.args.get("location")
+    
+    if not location:
+        return jsonify({
+            "error": "Missing location parameter",
+            "example": "/api/forecast?location=princeton,nj"
+        }), 400
+    
+    forecast = forecast_client.get_forecast(location)
+    
+    if not forecast:
+        return jsonify({
+            "error": "Unsupported location",
+            "available_locations": list(forecast_client.locations.keys()),
+            "example_locations": ["princeton,nj", "08540", "new york,ny"]
+        }), 400
+    
+    return jsonify(forecast)
 
-    # Check if required parameters are missing.
-    if not location_id or not start_date or not end_date:
-        return jsonify({"error": "Missing parameters"}), 400  # Return a 400 Bad Request error.
+@app.route("/api/historical", methods=["GET"])
+def get_historical():
+    """
+    Get historical data by location ID and date
+    Example: /api/historical?location=CITY:US360019&date=2023-01-01
+    """
+    location = request.args.get("location")
+    date = request.args.get("date")
+    
+    if not location or not date:
+        return jsonify({
+            "error": "Missing parameters",
+            "required": ["location", "date"],
+            "example": "/api/historical?location=CITY:US360019&date=2023-01-01"
+        }), 400
+    
+    data = historical_client.get_weather_data(location, date)
+    return jsonify(data) if data else jsonify({"error": "Data unavailable"}), 500
 
-    try:
-        # Fetch wind data from the NOAA API.
-        wind_data = noaa_client.fetch_wind_data(location_id, start_date, end_date)
-        return jsonify(wind_data)  # Return the wind data as JSON.
-    except Exception as e:
-        # Handle errors (e.g., API request failed).
-        return jsonify({"error": str(e)}), 500  # Return a 500 Internal Server Error.
-
-# Run the Flask app.
 if __name__ == "__main__":
-    app.run(debug=True)  # Enable debug mode for development.
+    app.run(host='0.0.0.0', port=5000, debug=True)
