@@ -1,6 +1,34 @@
 import json
 import math
 
+example_sites = [
+    {"Prefecture Name": "Tripoli Alaska", "Latitude": 61.3707, "Longitude": -152.4044},
+    {"Prefecture Name": "Tokyo", "Latitude": 35.682839, "Longitude": 139.759455},
+    {"Prefecture Name": "Osaka", "Latitude": 34.693738, "Longitude": 135.502165},
+    {"Prefecture Name": "Hokkaido", "Latitude": 43.06417, "Longitude": 141.34694},
+]
+
+example_launches = [
+    {"Launch Name": "Falcon 9 Block 5", "Latitude": 28.5721, "Longitude": -80.6480},
+    {"Launch Name": "Atlas V", "Latitude": 28.5633, "Longitude": -80.5774},
+    {"Launch Name": "Electron", "Latitude": -39.2833, "Longitude": 176.5667},
+    {"Launch Name": "Soyuz", "Latitude": 46.0, "Longitude": 142.0},
+]
+
+
+
+example_forecast = [
+
+]
+
+class NameComparator:
+    """Comparator for sorting by name."""
+    def __call__(self, site1, site2):
+        return (site1["Prefecture Name"] > site2["Prefecture Name"]) - (site1["Prefecture Name"] < site2["Prefecture Name"])
+
+def sort (sites, launches, comparator):
+
+
 class calculate:
     def load_json(filename):
         """Load JSON data from a file."""
