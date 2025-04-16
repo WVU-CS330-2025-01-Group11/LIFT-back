@@ -1,7 +1,8 @@
 from typing import Dict, List
 from enum import Enum
+from ForecastData import ForecastData
 
-def compare_distance(launch: dict, site: dict, forecast: dict) -> float:
+def compare_distance(launch: dict, site: dict, forecast: ForecastData) -> float:
     """
     Args:
         launch: JSON object containing launch details.
@@ -12,11 +13,14 @@ def compare_distance(launch: dict, site: dict, forecast: dict) -> float:
         float: Suitability score (lower = better).
     """
     #placeholder
-    distance = -42# calculate_distances( launch, site )
+
+    launchCoords = zip_to_coords( launch[ zip ] )
+    siteCoords = zip_to_cords( site[ zip ] )
+    distance = haversine( launchCoords[ 0 ], launchCoords[ 1 ], siteCoords[ 0 ], siteCoords[ 1 ] )
     
     return distance
 
-def compare_windspeed(launch: dict, site: dict, forecast: dict) -> float:
+def compare_windspeed(launch: dict, site: dict, forecast: ForecastData) -> float:
     """    
     Args:
         launch: JSON object containing launch details.
@@ -26,12 +30,14 @@ def compare_windspeed(launch: dict, site: dict, forecast: dict) -> float:
     Returns:
         float: Suitability score (lower = better).
     """
-    #placeholder
-    windspeed = -42# forecast[ windspeed ]
-    
-    return windspeed
+    result = []
 
-def compare_waiver_altitude(launch: dict, site: dict, forecast: dict) -> float:
+    for period in ForecastData.forecast_periods:
+        result.append( period.wind_speed )
+    
+    return result
+
+def compare_waiver_altitude(launch: dict, site: dict, forecast: ForecastData) -> float:
     """    
     Args:
         launch: JSON object containing launch details.
@@ -46,7 +52,7 @@ def compare_waiver_altitude(launch: dict, site: dict, forecast: dict) -> float:
     
     return max_waiver_altitude
 
-def compare_cloud_cover(launch: dict, site: dict, forecast: dict) -> float:
+def compare_cloud_cover(launch: dict, site: dict, forecast: ForecastData) -> float:
     """    
     Args:
         launch: JSON object containing launch details.
@@ -61,8 +67,8 @@ def compare_cloud_cover(launch: dict, site: dict, forecast: dict) -> float:
     
     return cloud_cover_index
 
-def compare_precipitation(launch: dict, site: dict, forecast: dict) -> float:
-    """    
+def compare_precipitation(launch: dict, site: dict, forecast: ForecastData) -> float:
+    """
     Args:
         launch: JSON object containing launch details.
         site: JSON object containing launch site details.
@@ -76,6 +82,22 @@ def compare_precipitation(launch: dict, site: dict, forecast: dict) -> float:
     forecast_precipitation = -42# forecast[ precipitation ]
     
     return forecast_precipitation
+
+def compare_temperature(launch: dict, site: dict, forecast: ForecastData) -> float:
+    """    
+    Args:
+        launch: JSON object containing launch details.
+        site: JSON object containing launch site details.
+        forecast: JSON object containing forecast data for the site.
+    
+    Returns:
+        float: Suitability score (lower = better).
+    """
+
+    #placeholder
+    temperature = -42# | 72 - forecast[ temperature ] |
+    
+    return temperature
 
 def launch_site_comparator(
     launch: dict, 
@@ -101,7 +123,8 @@ def launch_site_comparator(
         "WINDSPEED": compare_windspeed,
         "WAIVER_ALTITUDE": compare_waiver_altitude,
         "CLOUD_COVER": compare_cloud_cover,
-        "PRECIPITATION": compare_precipitation
+        "PRECIPITATION": compare_precipitation,
+        "TEMPERATURE": compare_temperature
     }
 
     if which not in function_map:
