@@ -41,3 +41,13 @@ app.get('/sites', (req, res) => {
     console.log("/sites GET request received");
     res.send(jsonData);
 });
+
+app.post('/rank', express.json(), (req, res) => {
+
+    json_message = req.body;
+    console.log(json_message);
+    
+    // dont need this shit just have client send request directly to api.
+
+
+});
