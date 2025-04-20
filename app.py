@@ -8,7 +8,7 @@ import json
 
 import numpy as np
 
-import rank
+import Rank
 
 # Initialize app
 load_dotenv()
@@ -59,7 +59,6 @@ def get_forecast():
     return jsonify(forecast)
 
 @app.route("/rank", methods=["POST"])
-# @app.route("/rank", methods=["GET"])
 def rank_request():
     """
     high-level endpoint for ranking launch sites
@@ -69,13 +68,26 @@ def rank_request():
 
     data = request.get_json()
 
+
+    # print request args
+    print (f"Request args: {request.args}")
+    print (f"Request data: {data}")
+
+    if not data:
+        print ("No data provided")
+        return jsonify({"error": "No data provided"}), 400
+
     zip_code = int(request.args.get("zip_code"))
     search_radius = request.args.get("search_radius")
     print (f"Zip code: {zip_code}")
+    print (f"Search radius: {search_radius}")
+
+    print (f"Data: {data}")
+
     comparator_weights = data.get("comparator_weights")
     launch = data.get("launch")
 
-    response = rank(zip_code, search_radius, comparator_weights, launch)
+    response = Rank.rank(zip_code, search_radius, comparator_weights, launch)
 
     return jsonify(response)
 

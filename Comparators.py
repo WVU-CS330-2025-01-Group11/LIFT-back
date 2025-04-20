@@ -1,7 +1,7 @@
 from typing import Dict, List
 from enum import Enum
 from ForecastData import ForecastData
-from rank import haversine, zip_to_coords
+from Rank import haversine, zip_to_coords
 
 def distance_comparator( launch: dict, site: dict, forecast: ForecastData ) -> float:
     """
