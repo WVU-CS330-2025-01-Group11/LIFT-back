@@ -58,20 +58,16 @@ def get_forecast():
     
     return jsonify(forecast)
 
+
 @app.route("/rank", methods=["POST"])
 def rank_request():
     """
     high-level endpoint for ranking launch sites
-    Example: /rank
-    body: {"zip_code": "8753", "search_radius(mi)": "300", "comparator_weights": {"name": 1, "distance": 1}, "launch": {...}}
+    Example: /rank?zip_code=26505&search_radius=500
+    body: {"comparator_weights": {"name": 1, "distance": 1}, "launch": {...}}
     """
 
     data = request.get_json()
-
-
-    # print request args
-    print (f"Request args: {request.args}")
-    print (f"Request data: {data}")
 
     if not data:
         print ("No data provided")
@@ -79,15 +75,13 @@ def rank_request():
 
     zip_code = int(request.args.get("zip_code"))
     search_radius = request.args.get("search_radius")
-    print (f"Zip code: {zip_code}")
-    print (f"Search radius: {search_radius}")
 
-    print (f"Data: {data}")
-
-    comparator_weights = data.get("comparator_weights")
-    launch = data.get("launch")
+    comparator_weights = data[0]
+    launch = data[1]
 
     response = Rank.rank(zip_code, search_radius, comparator_weights, launch)
+
+    print (f"Response: {response}")
 
     return jsonify(response)
 

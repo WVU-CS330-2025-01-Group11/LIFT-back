@@ -1,4 +1,6 @@
 from APIClient import APIClient
+from Utility import zip_to_coords
+import numpy as np
 
 class ForecastDataClient(APIClient):
     """Client for retrieving weather forecast data"""
@@ -7,14 +9,14 @@ class ForecastDataClient(APIClient):
         super().__init__()
         self.base_url = "https://api.weather.gov"
         # just some random locations for now while we get things rolling
-        self.locations = {
-            "08540": (40.3573, -74.6672),
-            "90210": (34.1030, -118.4108),
-            "10001": (40.7506, -73.9975),
-            "princeton,nj": (40.3573, -74.6672),
-            "new york,ny": (40.7128, -74.0060),
-            "miami,fl": (25.7617, -80.1918)
-        }
+        # self.locations = {
+        #     "08540": (40.3573, -74.6672),
+        #     "90210": (34.1030, -118.4108),
+        #     "10001": (40.7506, -73.9975),
+        #     "princeton,nj": (40.3573, -74.6672),
+        #     "new york,ny": (40.7128, -74.0060),
+        #     "miami,fl": (25.7617, -80.1918)
+        # }
 
     def get_weather_data(self, latitude, longitude):
         """
@@ -63,4 +65,4 @@ class ForecastDataClient(APIClient):
         Returns:
             tuple: (latitude, longitude) or None if not found
         """
-        return self.locations.get(location_input)
+        return zip_to_coords(location_input) if location_input in self.locations else None

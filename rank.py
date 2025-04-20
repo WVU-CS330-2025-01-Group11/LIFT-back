@@ -2,92 +2,51 @@
 import json
 import numpy as np
 
-valid_comparators = ["distance", "temperature", "precipitation", "wind_speed", "waiver_altitude", "cloud_cover"]
+import Comparators
+from Comparators import zip_to_coords, sites_in_radius
 
-#get sites and the coords
-with open("List of Launch Sites/output.json", "r") as f:
-    sites = json.load(f)
+from ForecastClient import ForecastDataClient
+from ForecastData import ForecastData
+from SiteData import SiteData
 
-    sites_lat = np.array([site["Latitude"] for site in sites])
-    sites_lon = np.array([site["Longitude"] for site in sites])
+valid_comparators = ["Dist", "Temp", "Wind S/", "Cloud Cover", "Precipitation", "WaiverAltitude"]
+comparators = [Comparators.distance_comparator, 
+               Comparators.temperature_comparator,
+               Comparators.windspeed_comparator,
+               Comparators.cloud_cover_comparator,
+               Comparators.precipitation_comparator,
+               Comparators.waiver_altitude_comparator]
 
-    #get rid of the None values
-    sites_lat = np.array([lat for lat in sites_lat if lat is not None])
-    sites_lon = np.array([lon for lon in sites_lon if lon is not None])
-
-    #get ride of sites with no lat/lon
-    sites = np.array([site for site in sites if site["Latitude"] is not None and site["Longitude"] is not None])
-    #convert to numpy arrays
-    sites_lat = np.array(sites_lat, dtype=float)
-    sites_lon = np.array(sites_lon, dtype=float)
-
-def haversine(lat1, lon1, lat2, lon2):
-    """Calculate the great-circle distance between two GPS points in kilometers."""
-
-    """ Slight modification to the original to handle vectorized inputs """
+comp_map = dict(zip(valid_comparators, comparators))
 
 
-    if np.nan in [lat1.any(), lon1.any(), lat2.any(), lon2.any()]:
-        return np.nan
-    if None in [lat1.any(), lon1.any(), lat2.any(), lon2.any()]:
+#initializing the forecast client
+forcast_client = ForecastDataClient()
+
+def get_forecast_data(site):
+    """
+    Get forecast data for a given location
+    Args:
+        location (str): Location ID (e.g., "CITY:US360019")
+    Returns:
+        dict: Forecast data for the location
+    """
+    zipcode = site["Zip Code"]
+    latitude = site["Latitude"]
+    longitude = site["Longitude"]
+
+    #create forcast data object
+    forecast_data = ForecastData(zipcode)
+    forecast_dict = forcast_client.get_weather_data(latitude, longitude)
+
+    if not forecast_dict:
         return None
-    # Handle missing data safely
     
-    # # Ensure all inputs are numpy arrays for vectorized operations and they are of the same shape
-    # lat1, lon1, lat2, lon2 = map(np.asarray, [lat1, lon1, lat2, lon2])
-    if lat1.shape != lat2.shape or lon1.shape != lon2.shape:
-        raise ValueError("Input arrays must have the same shape.")
+    forecast_data.from_dict(forecast_dict)
 
-    R = 6371.0 * np.ones_like(lat1)  # Earth's radius in km
-    # phi1, phi2 = np.map(np.radians, [lat1, lat2])
-    phi1, phi2 = np.radians(lat1), np.radians(lat2)
-    # delta_phi, delta_lambda = map(np.radians, [lat2 - lat1, lon2 - lon1])
-    delta_phi = np.radians(lat2 - lat1)
-    delta_lambda = np.radians(lon2 - lon1)
+    print (f"Forecast data for {zipcode}: {forecast_data}")
 
-    a = np.sin(delta_phi / 2) ** 2 + np.cos(phi1) * np.cos(phi2) * np.sin(delta_lambda / 2) ** 2
-    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
-
-    return R * c
-
-def rank_low(sites, launch, comparator):
-    pass
-
-def zip_to_coords(zip_code):
-    """
-    Convert a zip code to coordinates using the US_zip_codes.npy, US_coordinates.npy files
-    """
-    # Load the numpy arrays
-    zip_codes = np.load("List of Launch Sites/US_zip_codes.npy")
-    coordinates = np.load("List of Launch Sites/US_coordinates.npy")
-
-    # Find the index of the zip code
-    index = np.where(zip_codes == zip_code)[0]
-
-    if index.size == 0:
-        return None  # Zip code not found
-
-    # Return the coordinates as numpy array of floats
-    return coordinates[index[0]].astype(float)
-
-def sites_in_radius(user_coords, search_radius):
-    #From the stored sites, return all that are within the search radius of user_coords
-
-    # I think this is minimal explicit use of for loops.
-    # Hopefully should be significantly faster than a naive implementation,
-    # at the expense of some readability. I can probably answer most questions about it.
-
-    user_lat, user_lon = user_coords[0] * np.ones_like(sites_lat), user_coords[1] * np.ones_like(sites_lon)
-    
-    #ensure dtype is float
-    user_lat, user_lon = user_lat.astype(float), user_lon.astype(float)
-    fsites_lat, fsites_lon = sites_lat.astype(float), sites_lon.astype(float)
-
-    #calculate the distance to each site
-    distances = haversine(user_lat, user_lon, fsites_lat, fsites_lon)
-
-    #get the sites within the search radius
-    return sites[distances <= search_radius]
+    return forecast_data
 
 def rank(zip_code, search_radius, comparator_weights, launch):
 
@@ -108,6 +67,33 @@ def rank(zip_code, search_radius, comparator_weights, launch):
     #get sites in the search radius
     valid_sites = sites_in_radius(user_coords, search_radius)
     print (f"Valid sites: {valid_sites}")
+
+    print (f"User coords: {user_coords}")
+    print (f"Comparator weights: {comparator_weights}")
+    print (f"Launch: {launch}")
+
+    site_objects = [SiteData(site) for site in valid_sites]
+    for site in site_objects:
+        print (f"Site object: {site}")
+
+    # Get forecast data for each valid site
+    forcast_data = {}
+    for site in valid_sites:
+        forcast = get_forecast_data(site)
+
+        forcast_data[site["Zip Code"]] = forcast
+        if forcast is None:
+            return "invalid forecast data", 400
+        
+    print (f"Forecast data: {forcast_data}")
+
+    weight_vector = np.array([comparator_weights[comp] for comp in valid_comparators])
+    print (f"Weight vector: {weight_vector}")
+
+    #normalize the weights      (L^1 norm here because we want to sum to 1)
+    weight_vector = weight_vector / np.linalg.norm(weight_vector, ord=1)
+
+    print (f"Normalized weight vector: {weight_vector}")
    
 
     # for each comparator, rank the launch sites
