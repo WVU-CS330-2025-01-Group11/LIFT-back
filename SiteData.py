@@ -9,10 +9,28 @@ class SiteData:
     """
     def __init__(self, site_dictionary):
         self.site_dictionary = site_dictionary
+        self.name = site_dictionary.get("Prefecture Name")
         self.zip_code = int(site_dictionary.get("Zip Code"))
         self.latitude = site_dictionary.get("Latitude")
         self.longitude = site_dictionary.get("Longitude")
         self.elevation = site_dictionary.get("Elevation")
 
+        self.max_waiver_altitude = 0
+
     def __str__(self):
         return f"SiteData(zip_code={self.zip_code}, latitude={self.latitude}, longitude={self.longitude}, elevation={self.elevation})"
+
+    def to_json(self):
+        """
+        Convert the SiteData object to a JSON-compatible dictionary.
+        Returns:
+            dict: JSON-compatible dictionary representation of the SiteData object.
+        """
+        return {
+            "name": self.name,
+            "zip_code": self.zip_code,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "elevation": self.elevation,
+            "max_waiver_altitude": self.max_waiver_altitude
+        }

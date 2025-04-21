@@ -2,156 +2,182 @@ from typing import Dict, List
 from enum import Enum
 import numpy as np
 import json
+from functools import cmp_to_key
 
 from ForecastData import ForecastData
 from SiteData import SiteData
 
 from Utility import haversine, zip_to_coords, sites_in_radius
 
-def distance_comparator( launch: dict, site: SiteData, forecast: ForecastData ) -> float:
-    """
-    Args:
-        launch: JSON object containing launch details.
-        site: JSON object containing launch site details.
-        forecast: JSON object containing forecast data for the site.
-    
-    Returns:
-        float: Suitability score (lower = better).
-    """
-    #placeholder
+def distance_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
+    """Compare two sites based on distance from the launch location."""
+    launch_zip = launch['zip']
+    launch_coords = zip_to_coords(launch_zip)
 
-    print (f"Launch: {launch}")
-    print (f"Site: {site}")
-    print (f"Forecast: {forecast}")
-
-    launchCoords = zip_to_coords( launch[ zip ] )
-    siteCoords = zip_to_coords( site[ zip ] )
-    distance = haversine( launchCoords[ 0 ], launchCoords[ 1 ], siteCoords[ 0 ], siteCoords[ 1 ] )
+    site_coords1 = np.array([site1.latitude, site1.longitude])
+    site_coords2 = np.array([site2.latitude, site2.longitude])
     
-    return distance
-
-def windspeed_comparator( launch: dict, site: SiteData, forecast: ForecastData ) -> float:
-    """    
-    Args:
-        launch: JSON object containing launch details.
-        site: JSON object containing launch site details.
-        forecast: JSON object containing forecast data for the site.
+    # site_coords1 = zip_to_coords(site1.zip)
+    # site_coords2 = zip_to_coords(site2.zip)
     
-    Returns:
-        float[]: each period's windspeed (lower = better).
-    """
-    result = []
-
-    for period in forecast.forecast_periods:
-        result.append( period.wind_speed )
+    distance1 = haversine(launch_coords[0], launch_coords[1], site_coords1[0], site_coords1[1])
+    distance2 = haversine(launch_coords[0], launch_coords[1], site_coords2[0], site_coords2[1])
     
-    return result
+    if distance1 < distance2:
+        return -1  # site1 is better (closer)
+    elif distance1 > distance2:
+        return 1   # site2 is better
+    else:
+        return 0
 
-def waiver_altitude_comparator( launch: dict, site: SiteData, forecast: ForecastData ) -> float:
-    """    
-    Args:
-        launch: JSON object containing launch details.
-        site: JSON object containing launch site details.
-        forecast: JSON object containing forecast data for the site.
-    
-    Returns:
-        float: Suitability score (higher = better).
-    """
-    #placeholder
-    max_waiver_altitude = -42# site[ max_waiver_altitude ]
-    
-    return max_waiver_altitude
+def windspeed_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
+    """Compare two sites based on average wind speed (lower is better)."""
+    # avg_wind1 = sum(0.5 * (p.wind_low + p.wind_high) for p in forecast1.forecast_periods) / len(forecast1.forecast_periods)
+    # avg_wind2 = sum(0.5 * (p.wind_low + p.wind_high) for p in forecast2.forecast_periods) / len(forecast2.forecast_periods)
+    low_speeds1 = [float(p.wind_low) for p in forecast1.forecast_periods]
+    high_speeds1 = [float(p.wind_high) for p in forecast1.forecast_periods]
+    low_speeds2 = [float(p.wind_low) for p in forecast2.forecast_periods]
+    high_speeds2 = [float(p.wind_high) for p in forecast2.forecast_periods]
 
-def cloud_cover_comparator( launch: dict, site: SiteData, forecast: ForecastData ) -> float:
-    """    
-    Args:
-        launch: JSON object containing launch details.
-        site: JSON object containing launch site details.
-        forecast: JSON object containing forecast data for the site.
-    
-    Returns:
-        float: Suitability score (lower = better).
-    """
-    #placeholder
-    cloud_cover_index = -42# forecast[ cloud_cover_metric ]
-    
-    return cloud_cover_index
+    p = 1  # L^1 norm (sum of absolute values)
 
-def precipitation_comparator( launch: dict, site: SiteData, forecast: ForecastData ) -> float:
-    """
-    Args:
-        launch: JSON object containing launch details.
-        site: JSON object containing launch site details.
-        forecast: JSON object containing forecast data for the site.
+    norm_low1 = np.linalg.norm(low_speeds1, ord=p)
+    norm_high1 = np.linalg.norm(high_speeds1, ord=p)
+    norm_low2 = np.linalg.norm(low_speeds2, ord=p)
+    norm_high2 = np.linalg.norm(high_speeds2, ord=p)
+
+    # print (f"Low speeds 1: {low_speeds1}, High speeds 1: {high_speeds1}")
+    # print (f"Low speeds 2: {low_speeds2}, High speeds 2: {high_speeds2}")
+    # print (f"Norm low 1: {norm_low1}, Norm high 1: {norm_high1}")
+    # print (f"Norm low 2: {norm_low2}, Norm high 2: {norm_high2}")
+
+    low_weight = 0.2
+    high_weight = 0.8
+
+    low_weight, high_weight = np.array([low_weight, high_weight]) / np.linalg.norm([low_weight, high_weight], ord=1)
+    avg_wind1 = low_weight * norm_low1 + high_weight * norm_high1
+    avg_wind2 = low_weight * norm_low2 + high_weight * norm_high2
+    # print (f"Avg wind 1: {avg_wind1}, Avg wind 2: {avg_wind2}")
+
     
-    Returns:
-        float[]: Each period's expected precipitation (lower = better).
-    """
+    if avg_wind1 < avg_wind2:
+        return -1
+    elif avg_wind1 > avg_wind2:
+        return 1
+    else:
+        return 0
 
-    result = []
-
-    for period in forecast.forecast_periods:
-        result.append( period.percip )
+def waiver_altitude_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
+    """Compare two sites based on maximum waiver altitude (higher is better)."""
+    waiver1 = site1.max_waiver_altitude
+    waiver2 = site2.max_waiver_altitude
     
-    return result
+    if waiver1 > waiver2:
+        return -1   # site1 is better (higher waiver altitude)
+    elif waiver1 < waiver2:
+        return 1
+    else:
+        return 0
 
-def temperature_comparator( launch: dict, site: SiteData, forecast: ForecastData ) -> float:
-    """    
-    Args:
-        launch: JSON object containing launch details.
-        site: JSON object containing launch site details.
-        forecast: JSON object containing forecast data for the site.
+def cloud_cover_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
+    """Compare two sites based on cloud cover (lower is better)."""
+    # cloud1 = forecast1.cloud_cover_metric
+    # cloud2 = forecast2.cloud_cover_metric
+
+    # For cloud cover metric we will need to parse the short forecast string
+
+    return 0  # Placeholder for actual cloud cover comparison logic
+
+
+    if cloud1 < cloud2:
+        return -1   # site1 is better (lower cloud cover)
+    elif cloud1 > cloud2:
+        return 1
+    else:
+        return 0
+
+def precipitation_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
+    """Compare two sites based on precipitation probability (lower is better)."""
+    # avg_precip1 = sum(p.percip_prob for p in forecast1.forecast_periods) / len(forecast1.forecast_periods)
+    # avg_precip2 = sum(p.percip_prob for p in forecast2.forecast_periods) / len(forecast2.forecast_periods)
+
+    precip_probs1 = [float(p.percip_prob) for p in forecast1.forecast_periods]
+    precip_probs2 = [float(p.percip_prob) for p in forecast2.forecast_periods]
+
+    p = 1  # L^1 norm (sum of absolute values)
+    avg_precip1 = np.linalg.norm(precip_probs1, ord=p)
+    avg_precip2 = np.linalg.norm(precip_probs2, ord=p)
     
-    Returns:
-        float: Suitability score (lower = better).
-    """
+    if avg_precip1 < avg_precip2:
+        return -1
+    elif avg_precip1 > avg_precip2:
+        return 1
+    else:
+        return 0
 
-    result = []
-
-    for period in forecast.forecast_periods:
-        result.append( period.temperature )
+def temperature_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
+    """Compare two sites based on temperature (lower is better)."""
+    # avg_temp1 = sum(p.temperature for p in forecast1.forecast_periods) / len(forecast1.forecast_periods)
+    # avg_temp2 = sum(p.temperature for p in forecast2.forecast_periods) / len(forecast2.forecast_periods)
     
-    return result
+    temps1 = [float(p.temperature) for p in forecast1.forecast_periods]
+    temps2 = [float(p.temperature) for p in forecast2.forecast_periods]
+
+    p = 1  # L^1 norm (sum of absolute values)
+    avg_temp1 = np.linalg.norm(temps1, ord=p)
+    avg_temp2 = np.linalg.norm(temps2, ord=p)
+
+    if avg_temp1 < avg_temp2:
+        return -1
+    elif avg_temp1 > avg_temp2:
+        return 1
+    else:
+        return 0
+
+valid_comparators = ["Dist", "Temp", "Wind S/", "Cloud Cover", "Precipitation", "Waiver Altitude"]
+comparators = [
+    distance_comparator,
+    temperature_comparator,
+    windspeed_comparator,
+    cloud_cover_comparator,
+    precipitation_comparator,
+    waiver_altitude_comparator
+]
+
+comp_map = dict(zip(valid_comparators, comparators))
 
 def compare_sites(
     launch: dict, 
-    sites_with_forecasts: Dict[ SiteData, Dict[ str, dict ] ],
+    sites_with_forecasts: Dict[SiteData, ForecastData],
     which: str
-) -> List[ float ]:
+) -> List[SiteData]:
     """
-    Compares launch sites based on suitability for a given launch.
+    Compares launch sites based on suitability for a given launch and returns them sorted.
     
     Args:
-        launch: JSON object describing the launch (e.g., payload, target orbit).
-        sites_with_forecasts: Dict mapping site IDs to {"site": {...}, "forecast": {...}}.
-        which_metric: int 
+        launch: JSON object describing the launch.
+        sites_with_forecasts: Dictionary mapping sites to their forecast data.
+        which: Metric to compare by.
     
     Returns:
-        List[float]: Suitability scores for each site (in input order).
-        -1: ERROR: invalid comparison request
+        List[SiteData]: Sorted list of sites from most to least suitable.
     """
-
-    function_map = {
-
-        "DISTANCE": distance_comparator,
-        "WINDSPEED": windspeed_comparator,
-        "WAIVER_ALTITUDE": waiver_altitude_comparator,
-        "CLOUD_COVER": cloud_cover_comparator,
-        "PRECIPITATION": precipitation_comparator,
-        "TEMPERATURE": temperature_comparator
-    }
-
-    if which not in function_map:
-        raise ValueError( f"Invalid comparison '{which}'." )
-        return -1
-
-    suitability_scores = []
+    if which not in comp_map:
+        raise ValueError(f"Invalid comparison '{which}'.")
     
-    for site_id, data in sites_with_forecasts.items():
-        site = data[ "site" ]
-        forecast = data[ "forecast" ]
-        
-        score = function_map[ which ]( launch, site, forecast )
-        suitability_scores.append( score )
+    # Convert to list of tuples (SiteData, ForecastData)
+    sites_list = list(sites_with_forecasts.items())
     
-    return suitability_scores
+    comparator_func = comp_map[which]
+    
+    # Define comparison function for sorting
+    def compare(a, b):
+        (site_a, forecast_a) = a
+        (site_b, forecast_b) = b
+        return comparator_func(launch, site_a, site_b, forecast_a, forecast_b)
+    
+    # Sort using the comparator
+    sorted_sites = sorted(sites_list, key=cmp_to_key(compare))
+    
+    # Extract the SiteData objects in order
+    return [site for (site, _) in sorted_sites]

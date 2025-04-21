@@ -81,11 +81,20 @@ def rank_request():
 
     response = Rank.rank(zip_code, search_radius, comparator_weights, launch)
 
-    print (f"Response: {response}")
+    ranked_sites, response_code = response
+    if response_code != 200:
+        return jsonify({"error": ranked_sites}), response_code
+    
+    ranked_sites_json = [site.to_json() for site in ranked_sites]
+    response = {
+        "ranked_sites": ranked_sites_json,
+        "launch": launch,
+        "search_radius": search_radius,
+        "zip_code": zip_code
+    }, 200
+    
+    return response
 
-    return jsonify(response)
-
-        
 @app.route("/api/historical", methods=["GET"])
 def get_historical():
     """

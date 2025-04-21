@@ -1,22 +1,48 @@
 import json
 import numpy as np
 
+# Load the numpy arrays
+zip_codes = np.load("List of Launch Sites/US_zip_codes.npy")
+coordinates = np.load("List of Launch Sites/US_coordinates.npy")
+
+def zip_to_coords(zip_code):
+    """
+    Convert a zip code to coordinates using the US_zip_codes.npy, US_coordinates.npy files
+    """
+    # Find the index of the zip code
+    index = np.where(zip_codes == int(zip_code))[0]
+
+    if index.size == 0:
+        print(f"Zip code {zip_code} not found.")
+        return None  # Zip code not found
+
+    # Return the coordinates as numpy array of floats
+    return coordinates[index[0]].astype(float)
+
 #get sites and the coords
 with open("List of Launch Sites/output.json", "r") as f:
     sites = json.load(f)
 
     sites_lat = np.array([site["Latitude"] for site in sites])
     sites_lon = np.array([site["Longitude"] for site in sites])
+    site_zips = np.array([site["Zip Code"] for site in sites])
 
-    #get rid of the None values
-    sites_lat = np.array([lat for lat in sites_lat if lat is not None])
-    sites_lon = np.array([lon for lon in sites_lon if lon is not None])
+    #get rid of sites with no lat/lon AND no zip code
+    sites_with_data = np.array([site for site in sites if site["Latitude"] is not None and site["Longitude"] is not None or site["Zip Code"] is not None])
+
+    #if there is a zip code, get the coordinates from the zip code
+    for i, site in enumerate(sites_with_data):
+        if site["Zip Code"] is not None and site["Latitude"] is None and site["Longitude"] is None:
+            coords = zip_to_coords(site["Zip Code"])
+            if coords is not None:
+                sites_with_data[i]["Latitude"] = coords[0]
+                sites_with_data[i]["Longitude"] = coords[1]
 
     #get ride of sites with no lat/lon
-    sites = np.array([site for site in sites if site["Latitude"] is not None and site["Longitude"] is not None])
+    sites = np.array([site for site in sites_with_data if site["Latitude"] is not None and site["Longitude"] is not None])
     #convert to numpy arrays
-    sites_lat = np.array(sites_lat, dtype=float)
-    sites_lon = np.array(sites_lon, dtype=float)
+    sites_lat = np.array([site["Latitude"] for site in sites], dtype=float)
+    sites_lon = np.array([site["Longitude"] for site in sites], dtype=float)
 
 def haversine(lat1, lon1, lat2, lon2):
     """Calculate the great-circle distance between two GPS points in kilometers."""
@@ -47,23 +73,6 @@ def haversine(lat1, lon1, lat2, lon2):
 
     return R * c
 
-def zip_to_coords(zip_code):
-    """
-    Convert a zip code to coordinates using the US_zip_codes.npy, US_coordinates.npy files
-    """
-    # Load the numpy arrays
-    zip_codes = np.load("List of Launch Sites/US_zip_codes.npy")
-    coordinates = np.load("List of Launch Sites/US_coordinates.npy")
-
-    # Find the index of the zip code
-    index = np.where(zip_codes == zip_code)[0]
-
-    if index.size == 0:
-        return None  # Zip code not found
-
-    # Return the coordinates as numpy array of floats
-    return coordinates[index[0]].astype(float)
-
 
 def sites_in_radius(user_coords, search_radius):
     #From the stored sites, return all that are within the search radius of user_coords
@@ -81,5 +90,7 @@ def sites_in_radius(user_coords, search_radius):
     #calculate the distance to each site
     distances = haversine(user_lat, user_lon, fsites_lat, fsites_lon)
 
+    mask = distances <= search_radius
+
     #get the sites within the search radius
-    return sites[distances <= search_radius]
+    return sites[mask]
