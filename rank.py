@@ -100,8 +100,6 @@ def rank(zip_code, search_radius, comparator_weights, launch):
     # for each comparator, rank the launch sites
     # using the given weights, find the average rank for each site
     rankings = {}   # Comparator -> List of SiteData
-
-
     
     print ("Running comparators...")
     for key, weight in comparator_weights.items():
@@ -123,10 +121,11 @@ def rank(zip_code, search_radius, comparator_weights, launch):
     print ("\n\n\n")
     print ("AVERAGing ranks...")
     for key, weight in comparator_weights.items():
-        for site in rankings[key]:
-            if site not in avg_rankings:
-                avg_rankings[site] = 0
-            avg_rankings[site] += weight * rankings[key].index(site)
+        avg_rankings = weight_vector * rankings[key]
+        # for site in rankings[key]:
+        #     if site not in avg_rankings:
+        #         avg_rankings[site] = 0
+        #     avg_rankings[site] += weight * rankings[key].index(site)
 
     #print average rankings
     print ("-------------")
