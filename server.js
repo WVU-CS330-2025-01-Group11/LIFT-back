@@ -5,17 +5,20 @@ const model = new LaunchModel();
 const controller = new LaunchController(model);
 
 const express = require('express');
-const app = express();
-const cors = require('cors');
+
+var cors = require('cors');
+var app = express();
+
+app.use(cors())
 
 const { openSync } = require('fs');
 const { readFileSync } = require('fs');
 
-const corsOptions = {
-    origin: ["http://localhost:3001"]
-}
+// const corsOptions = {
+//     origin: ["http://localhost:3001"]
+// }
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 app.use(express.static('public'));
 
