@@ -50,17 +50,17 @@ def rank(zip_code, search_radius, comparator_weights, launch):
     try:
         search_radius = float(search_radius)
     except ValueError:
-        return "invalid search radius", 400
+        return "invalid search radius", 0, 400
     
     # print (f"Search radius: {search_radius}")
 
     user_coords = zip_to_coords(zip_code)
     if user_coords is None:
-        return "invalid zip code", 400
+        return "invalid zip code", 0, 400
 
         user_coords = zip_to_coords(zip_code)
     if user_coords is None:
-        return "invalid zip code", 400
+        return "invalid zip code", 0, 400
 
     #get sites in the search radius
     valid_sites = sites_in_radius(user_coords, search_radius)
@@ -81,7 +81,7 @@ def rank(zip_code, search_radius, comparator_weights, launch):
 
         forcast_data[site] = forcast
         if forcast is None:
-            return "invalid forecast data", 400
+            return "invalid forecast data", 0, 400
         
     # for site, forecast in forcast_data.items():
     #     print (f"Forecast data for SITE: {site.zip_code}: {forecast}")
@@ -98,15 +98,12 @@ def rank(zip_code, search_radius, comparator_weights, launch):
     #     ranking = Comparators.compare_sites(launch, forcast_data, comp) 
     #     print (f"Ranking for {comp}: {ranking}")
 
-    # Make comparison input dictionary  SiteData -> ForecastData
-    sites_with_forecasts = {}
-
     # for each comparator, rank the launch sites
     # using the given weights, find the average rank for each site
     rankings = {}   # Comparator -> List of SiteData
 
+    optimal_period = {}  # Comparator -> Optimal period index
 
-    
     print ("Running comparators...")
     for key, weight in comparator_weights.items():
         print (f"Running comparator: {key}, weight: {weight}")
@@ -116,7 +113,10 @@ def rank(zip_code, search_radius, comparator_weights, launch):
 
         # Call the appropriate ranking function based on the key
         # compare_sites(launch, forcast_data, key)
-        rankings[key] = compare_sites(launch, forcast_data, key)
+        res = compare_sites(launch, forcast_data, key)
+        rankings[key] = res[0]
+        optimal_period[key] = res[1]
+
         print (f"Rankings for {key}: ")
         for site in rankings[key]:
             print (f"Site: {site.zip_code}")
@@ -138,12 +138,46 @@ def rank(zip_code, search_radius, comparator_weights, launch):
     for site in avg_rankings:
         print (f"Site: {site.zip_code}, Average rank: {avg_rankings[site]}")
 
-        
     #return list sorted by average rank
     sorted_sites = sorted(avg_rankings.keys(), key=lambda x: avg_rankings[x])
     # print (f"Sorted sites: {sorted_sites}")
     for site in sorted_sites:
         print (f"Site: {site.zip_code}, Average rank: {avg_rankings[site]}")
 
-    return sorted_sites, 200
+    print ("\n\n-------------")
+    print (f"Optimal times: { optimal_period}")
+    optimal_times = {}
+
+    #for each site, get the weigted average of the optimal times across the comparators
+    for site in sorted_sites:
+        pass
+    
+    print ("\n\n-------------")
+    print (f"!!!Optimal time!s!!!: {optimal_times}!!!")
+
+
+    return sorted_sites, optimal_times, 200
       
+
+def time_avg(time_list):
+    """
+    Get the average time from a list of times.
+    Args:
+        time_list (list): List of times to average. 
+        ex: [2025-05-08T06:00:00-04:00]
+        form: YYYY-MM-DDTHH:MM:SS-04:00
+    Returns:
+        str: Average time in the format YYYY-MM-DDTHH:MM:SS
+    """
+
+    print (f"Time list: {time_list}")
+
+    times = [t.split("-")[0] for t in time_list]
+
+    datetimes = [np.datetime64(t) for t in times]
+    print (f"Datetimes: {datetimes}")
+
+    # # Convert time strings to datetime objects
+    # time_list = [np.datetime64(time) for time in time_list]
+
+    # print (f"Time list: {time_list}")

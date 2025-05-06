@@ -16,6 +16,8 @@ app = Flask(__name__)
 # get cors working
 CORS(app)
 
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 # Initialize clients
 forecast_client = ForecastDataClient()
 historical_client = HistoricalDataClient(api_key=os.getenv("NOAA_API_KEY"))
@@ -79,20 +81,22 @@ def rank_request():
     comparator_weights = data[0]
     launch = data[1]
 
-    response = Rank.rank(zip_code, search_radius, comparator_weights, launch)
+    ranked_sites, optimal_times, response_code = Rank.rank(zip_code, search_radius, comparator_weights, launch)
 
-    ranked_sites, response_code = response
     if response_code != 200:
         return jsonify({"error": ranked_sites}), response_code
     
     ranked_sites_json = [site.to_json() for site in ranked_sites]
     response = {
         "ranked_sites": ranked_sites_json,
+        "best_times": optimal_times,
         "launch": launch,
         "search_radius": search_radius,
         "zip_code": zip_code
     }, 200
-    
+
+    print (f"!!!Ranked sites: {ranked_sites_json}")
+    print (f"!!!Best times: {optimal_times}")
     return response
 
 @app.route("/api/historical", methods=["GET"])

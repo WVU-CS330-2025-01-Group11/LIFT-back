@@ -24,11 +24,11 @@ def distance_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast
     distance2 = haversine(launch_coords[0], launch_coords[1], site_coords2[0], site_coords2[1])
     
     if distance1 < distance2:
-        return -1  # site1 is better (closer)
+        return -1, 0  # site1 is better (closer)
     elif distance1 > distance2:
-        return 1   # site2 is better
+        return 1, 0   # site2 is better
     else:
-        return 0
+        return 0, 0
 
 def windspeed_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
     """Compare two sites based on average wind speed (lower is better)."""
@@ -58,14 +58,15 @@ def windspeed_comparator(launch: dict, site1: SiteData, site2: SiteData, forecas
     avg_wind1 = low_weight * norm_low1 + high_weight * norm_high1
     avg_wind2 = low_weight * norm_low2 + high_weight * norm_high2
     # print (f"Avg wind 1: {avg_wind1}, Avg wind 2: {avg_wind2}")
-
     
     if avg_wind1 < avg_wind2:
-        return -1
+        optimal_period = forecast1.forecast_periods[low_speeds1.index(min(low_speeds1))].start
+        return -1, optimal_period  # site1 is better (lower wind speed)
     elif avg_wind1 > avg_wind2:
-        return 1
+        optimal_period = forecast2.forecast_periods[low_speeds2.index(min(low_speeds2))].start
+        return 1, optimal_period  # site2 is better
     else:
-        return 0
+        return 0, 0
 
 def waiver_altitude_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
     """Compare two sites based on maximum waiver altitude (higher is better)."""
@@ -73,11 +74,11 @@ def waiver_altitude_comparator(launch: dict, site1: SiteData, site2: SiteData, f
     waiver2 = site2.max_waiver_altitude
     
     if waiver1 > waiver2:
-        return -1   # site1 is better (higher waiver altitude)
+        return -1, 0   # site1 is better (higher waiver altitude)
     elif waiver1 < waiver2:
-        return 1
+        return 1, 0
     else:
-        return 0
+        return 0, 0
 
 def cloud_cover_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
     """Compare two sites based on cloud cover (lower is better)."""
@@ -86,7 +87,7 @@ def cloud_cover_comparator(launch: dict, site1: SiteData, site2: SiteData, forec
 
     # For cloud cover metric we will need to parse the short forecast string
 
-    return 0  # Placeholder for actual cloud cover comparison logic
+    return 0, 0  # Placeholder for actual cloud cover comparison logic
 
 
     if cloud1 < cloud2:
@@ -109,11 +110,15 @@ def precipitation_comparator(launch: dict, site1: SiteData, site2: SiteData, for
     avg_precip2 = np.linalg.norm(precip_probs2, ord=p)
     
     if avg_precip1 < avg_precip2:
-        return -1
+        # optimal_period = precip_probs1.index(min(precip_probs1))
+        optimal_period = forecast1.forecast_periods[precip_probs1.index(min(precip_probs1))].start
+        return -1, optimal_period  # site1 is better (lower precipitation probability)
     elif avg_precip1 > avg_precip2:
-        return 1
+        # optimal_period = precip_probs2.index(min(precip_probs2))
+        optimal_period = forecast2.forecast_periods[precip_probs2.index(min(precip_probs2))].start
+        return 1, optimal_period  # site2 is better
     else:
-        return 0
+        return 0, 0
 
 def temperature_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
     """Compare two sites based on temperature (lower is better)."""
@@ -128,11 +133,15 @@ def temperature_comparator(launch: dict, site1: SiteData, site2: SiteData, forec
     avg_temp2 = np.linalg.norm(temps2, ord=p)
 
     if avg_temp1 < avg_temp2:
-        return -1
+        # optimal_period = temps1.index(min(temps1))
+        optimal_period = forecast1.forecast_periods[temps1.index(min(temps1))].start
+        return -1, optimal_period  # site1 is better (lower temperature)
     elif avg_temp1 > avg_temp2:
-        return 1
+        # optimal_period = temps2.index(min(temps2))
+        optimal_period = forecast2.forecast_periods[temps2.index(min(temps2))].start
+        return 1, optimal_period
     else:
-        return 0
+        return 0, 0
 
 valid_comparators = ["Dist", "Temp", "Wind S/", "Cloud Cover", "Precipitation", "Waiver Altitude"]
 comparators = [
@@ -169,15 +178,19 @@ def compare_sites(
     sites_list = list(sites_with_forecasts.items())
     
     comparator_func = comp_map[which]
+
+    optimal_period_indices = []
     
     # Define comparison function for sorting
     def compare(a, b):
         (site_a, forecast_a) = a
         (site_b, forecast_b) = b
-        return comparator_func(launch, site_a, site_b, forecast_a, forecast_b)
+        res = comparator_func(launch, site_a, site_b, forecast_a, forecast_b)
+        optimal_period_indices.append(res[1])
+        return res[0]
     
     # Sort using the comparator
     sorted_sites = sorted(sites_list, key=cmp_to_key(compare))
     
     # Extract the SiteData objects in order
-    return [site for (site, _) in sorted_sites]
+    return [site for (site, _) in sorted_sites], optimal_period_indices
