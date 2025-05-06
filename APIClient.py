@@ -1,5 +1,4 @@
 # importing abstract methods
-# Some comments ai generated but have been reviewed and are accurate
 from abc import ABC, abstractmethod
 import requests
 
