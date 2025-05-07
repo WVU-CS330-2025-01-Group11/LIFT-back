@@ -22,9 +22,6 @@ def get_forecast_data(site):
     Returns:
         dict: Forecast data for the location
     """
-    # zipcode = site["Zip Code"]
-    # latitude = site["Latitude"]
-    # longitude = site["Longitude"]
 
     zipcode = site.zip_code
     latitude = site.latitude
@@ -46,14 +43,14 @@ def get_forecast_data(site):
 def rank(zip_code, search_radius, comparator_weights, launch):
 
     # Check if the search radius is valid
-    # search_radius = data.get("search_radius(mi)")
+    
     #convert to float
     try:
         search_radius = float(search_radius)
     except ValueError:
         return "invalid search radius", 0, 400
     
-    # print (f"Search radius: {search_radius}")
+    
 
     user_coords = zip_to_coords(zip_code)
     if user_coords is None:
@@ -118,7 +115,7 @@ def rank(zip_code, search_radius, comparator_weights, launch):
 
     #return list sorted by average rank
     sorted_sites = sorted(avg_rankings.keys(), key=lambda x: avg_rankings[x])
-    # print (f"Sorted sites: {sorted_sites}")
+    
     for site in sorted_sites:
         print (f"Site: {site.zip_code}, Average rank: {avg_rankings[site]}")
     
