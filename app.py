@@ -116,23 +116,4 @@ def get_historical():
     return jsonify(data) if data else jsonify({"error": "Data unavailable"}), 500
 
 if __name__ == "__main__":
-    # # Test haversine with vectorized inputs
-    # lat1 = np.array([40.0, 41.0])
-    # lon1 = np.array([-74.0, -75.0])
-    # lat2 = np.array([42.0, 43.0])
-    # lon2 = np.array([-76.0, -77.0])
-    # distances = haversine(lat1, lon1, lat2, lon2)
-    # print("Distances:", distances)
-
-    # #test the zip_to_coords function
-    # zip = 26505
-    # coords = zip_to_coords(zip)
-    # if coords is None:
-    #     print(f"Zip code {zip} not found")
-    # else:
-    #     print(f"Coordinates for zip code {zip}: {coords}")
-
-    # #test rank
-    # rank()
-
     app.run(host='0.0.0.0', port=5000, debug=True)
