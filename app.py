@@ -1,7 +1,7 @@
+# TODO file description good coumentation
 from flask import Flask, jsonify, request
 from flask_cors import CORS # my plan for getting this on front end
 from ForecastClient import ForecastDataClient
-from HistoricalClient import HistoricalDataClient
 from dotenv import load_dotenv
 import os
 import json
@@ -20,7 +20,6 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Initialize clients
 forecast_client = ForecastDataClient()
-historical_client = HistoricalDataClient(api_key=os.getenv("NOAA_API_KEY"))
 
 @app.route("/")
 def home():
@@ -96,24 +95,31 @@ def rank_request():
 
     return response
 
-@app.route("/api/historical", methods=["GET"])
-def get_historical():
-    """
-    Get historical data by location ID and date
-    Example: /api/historical?location=CITY:US360019&date=2023-01-01
-    """
-    location = request.args.get("location")
-    date = request.args.get("date")
-    
-    if not location or not date:
-        return jsonify({
-            "error": "Missing parameters",
-            "required": ["location", "date"],
-            "example": "/api/historical?location=CITY:US360019&date=2023-01-01"
-        }), 400
-    
-    data = historical_client.get_weather_data(location, date)
-    return jsonify(data) if data else jsonify({"error": "Data unavailable"}), 500
-
 if __name__ == "__main__":
+<<<<<<< Updated upstream
     app.run(host='0.0.0.0', port=5000, debug=True)
+=======
+    # # Test haversine with vectorized inputs
+    # lat1 = np.array([40.0, 41.0])
+    # lon1 = np.array([-74.0, -75.0])
+    # lat2 = np.array([42.0, 43.0])
+    # lon2 = np.array([-76.0, -77.0])
+    # distances = haversine(lat1, lon1, lat2, lon2)
+    # print("Distances:", distances)
+
+    # #test the zip_to_coords function
+    # zip = 26505
+    # coords = zip_to_coords(zip)
+    # if coords is None:
+    #     print(f"Zip code {zip} not found")
+    # else:
+    #     print(f"Coordinates for zip code {zip}: {coords}")
+
+    # #test rank
+    # rank()
+
+    # was app.run(host='0.0.0.0', port=5000, debug=True)
+    if __name__ == "__main__":
+        port = int(os.environ.get("PORT", 5000)) 
+        app.run(host="0.0.0.0", port=port)
+>>>>>>> Stashed changes
