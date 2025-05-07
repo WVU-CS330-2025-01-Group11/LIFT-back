@@ -1,3 +1,13 @@
+"""
+Utility.py
+
+This module provides geographic utility functions and data pre-processing logic for identifying viable rocket launch 
+sites based on location data. It loads pre-saved U.S. ZIP code and coordinate mappings, enriches site data with 
+coordinates when missing, and supports spatial queries using the haversine distance formula.
+
+Author:
+    Rex McAllister
+"""
 import json
 import numpy as np
 
