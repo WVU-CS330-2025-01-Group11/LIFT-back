@@ -49,14 +49,11 @@ def rank(zip_code, search_radius, comparator_weights, launch):
         search_radius = float(search_radius)
     except ValueError:
         return "invalid search radius", 0, 400
-    
-    
 
     user_coords = zip_to_coords(zip_code)
     if user_coords is None:
         return "invalid zip code", 0, 400
 
-        user_coords = zip_to_coords(zip_code)
     if user_coords is None:
         return "invalid zip code", 0, 400
 
@@ -64,8 +61,6 @@ def rank(zip_code, search_radius, comparator_weights, launch):
     valid_sites = sites_in_radius(user_coords, search_radius)
 
     site_objects = [SiteData(site) for site in valid_sites]
-    for site in site_objects:
-        print (f"Site object: {site}")
 
     # Get forecast data for each valid site
     forcast_data = {}
@@ -77,21 +72,16 @@ def rank(zip_code, search_radius, comparator_weights, launch):
             return "invalid forecast data", 0, 400
         
     weight_vector = np.array([comparator_weights[comp] for comp in valid_comparators])
-    print (f"Weight vector: {weight_vector}")
 
-    #normalize the weights      (L^1 norm here because we want to sum to 1)
+    #normalize the weights      (l^1 norm here because we want to sum to 1)
     weight_vector = weight_vector / np.linalg.norm(weight_vector, ord=1)
-
-    print (f"Normalized weight vector: {weight_vector}")
 
     rankings = {}   # Comparator -> List of SiteData
 
     print ("Running comparators...")
     for key, weight in comparator_weights.items():
-        print (f"Running comparator: {key}, weight: {weight}")
         if key not in valid_comparators:
             raise ValueError(f"Invalid comparator: {key}. Valid options are: {valid_comparators}")
-            # return jsonify({"error": f"Invalid comparator: {key}. Valid options are: {valid_comparators}"}), 400
 
         # Call the appropriate ranking function based on the key
         res = compare_sites(launch, forcast_data, key)
@@ -99,24 +89,13 @@ def rank(zip_code, search_radius, comparator_weights, launch):
 
     #compute the average rank for each site using comparator weights
     avg_rankings = {}
-    print ("\n\n\n")
-    print ("AVERAGing ranks...")
     for key, weight in comparator_weights.items():
         for site in rankings[key]:
             if site not in avg_rankings:
                 avg_rankings[site] = 0
             avg_rankings[site] += weight * rankings[key].index(site)
 
-    #print average rankings
-    print ("-------------")
-    print (f"Average rankings: ")
-    for site in avg_rankings:
-        print (f"Site: {site.zip_code}, Average rank: {avg_rankings[site]}")
-
     #return list sorted by average rank
     sorted_sites = sorted(avg_rankings.keys(), key=lambda x: avg_rankings[x])
-    
-    for site in sorted_sites:
-        print (f"Site: {site.zip_code}, Average rank: {avg_rankings[site]}")
     
     return sorted_sites, 200
