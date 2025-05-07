@@ -1,4 +1,15 @@
+"""
+Rank.py
 
+This module implements the backend logic for ranking rocket launch sites based on a variety of weather and 
+location-related criteria. It integrates weather forecasts, geospatial filtering, and multi-criteria decision 
+making using user-defined weights.
+
+Author:
+    Greyson Meares
+
+NOTICE: file name should be Rank.py
+"""
 import json
 from flask import jsonify
 import numpy as np
