@@ -1,3 +1,15 @@
+"""
+Comparators.py
+
+This module provides a suite of comparator functions to evaluate and rank rocket launch sites based on various weather 
+and location-related criteria. Each comparator returns a relative ranking between two sites and can also identify the 
+optimal forecast period for conditions such as temperature, wind speed, precipitation, distance from launch location, 
+and maximum waiver altitude.
+
+Authors:
+    Shelby Hansen & Greyson Meares
+"""
+
 from typing import Dict, List
 from enum import Enum
 import numpy as np
@@ -10,6 +22,8 @@ from ForecastData import ForecastData
 from SiteData import SiteData
 
 from Utility import haversine, zip_to_coords, sites_in_radius
+
+
 
 def distance_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
     """Compare two sites based on distance from the launch location."""

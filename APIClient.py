@@ -1,3 +1,12 @@
+"""
+APIClient.py
+
+This module defines an abstract base class `APIClient` that provides a foundational interface and utility
+methods for API clients that retrieve weather data or other external information via HTTP requests.
+
+Author:
+    Noah Yoak
+"""
 # importing abstract methods
 from abc import ABC, abstractmethod
 import requests

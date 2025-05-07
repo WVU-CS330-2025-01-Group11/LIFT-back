@@ -1,3 +1,12 @@
+"""
+SiteData.py
+
+This module defines the `SiteData` class, which encapsulates metadata for a rocket launch site, including its 
+geographic and elevation data. It also provides utility methods for string representation and JSON serialization.
+
+Author:
+    Greyson Meares
+"""
 import numpy as np
 
 # Dict example:
