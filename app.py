@@ -16,7 +16,8 @@ app = Flask(__name__)
 
 # get cors working
 frontend_url = os.environ.get('FRONTEND_URL', 'https://yellow-river-000fe9d0f.6.azurestaticapps.net')
-CORS(app, resources={r"/*": {"origins": "frontend_url"}})
+# CORS(app, resources={r"/*": {"origins": "frontend_url"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Initialize clients
 forecast_client = ForecastDataClient()
@@ -67,6 +68,8 @@ def rank_request():
     Example: /rank?zip_code=26505&search_radius=500
     body: {"comparator_weights": {"name": 1, "distance": 1}, "launch": {...}}
     """
+
+    print ("Rank request received")
 
     data = request.get_json()
 

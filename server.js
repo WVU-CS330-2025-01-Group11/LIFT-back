@@ -14,12 +14,6 @@ app.use(cors())
 const { openSync } = require('fs');
 const { readFileSync } = require('fs');
 
-// const corsOptions = {
-//     origin: ["http://localhost:3001"]
-// }
-
-// app.use(cors(corsOptions));
-
 app.use(express.static('public'));
 
 app.listen(3000, () => {console.log('Server running on port 3000')});
