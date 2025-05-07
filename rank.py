@@ -2,6 +2,7 @@
 import json
 from flask import jsonify
 import numpy as np
+import pandas as pd
 
 import Comparators
 from Comparators import zip_to_coords, sites_in_radius, comp_map, valid_comparators, compare_sites
@@ -102,8 +103,9 @@ def rank(zip_code, search_radius, comparator_weights, launch):
     # using the given weights, find the average rank for each site
     rankings = {}   # Comparator -> List of SiteData
 
-    optimal_period = {}  # Comparator -> Optimal period index
-
+    # optimal_period = {}  # Comparator -> average optimal datetime
+    # optimal_period = np.zeros((len(valid_comparators), len(site_objects)))
+    optimal_period = []
     print ("Running comparators...")
     for key, weight in comparator_weights.items():
         print (f"Running comparator: {key}, weight: {weight}")
@@ -115,13 +117,30 @@ def rank(zip_code, search_radius, comparator_weights, launch):
         # compare_sites(launch, forcast_data, key)
         res = compare_sites(launch, forcast_data, key)
         rankings[key] = res[0]
-        optimal_period[key] = res[1]
+        # optimal_period[valid_comparators.index(key)] = res[1]
+        print (f"Optimal period for {key}: {res[1]}")
+        optimal_period.append(res[1])
 
         print (f"Rankings for {key}: ")
         for site in rankings[key]:
             print (f"Site: {site.zip_code}")
         # print (f"Rankings for {key}: {rankings[key]}")
     
+    # if any array contained in optimal_period is full of zeros, remove it
+    for period in optimal_period:
+        if np.all(np.array(period) == 0):
+            optimal_period.remove(period)
+
+    #pad the optimal_period list with zeros to make it the same length as the longest list
+    max_length = max(len(period) for period in optimal_period)
+    for i in range(len(optimal_period)):
+        if len(optimal_period[i]) < max_length:
+            optimal_period[i] = np.pad(optimal_period[i], (0, max_length - len(optimal_period[i])), 'constant', constant_values=0)
+
+    print (f"Optimal periods: {optimal_period}")
+
+    optimal_period_T = np.array(optimal_period).T
+
     #compute the average rank for each site using comparator weights
     avg_rankings = {}
     print ("\n\n\n")
@@ -146,18 +165,22 @@ def rank(zip_code, search_radius, comparator_weights, launch):
 
     print ("\n\n-------------")
     print (f"Optimal times: { optimal_period}")
-    optimal_times = {}
 
-    #for each site, get the weigted average of the optimal times across the comparators
-    for site in sorted_sites:
-        pass
+    # optimal_period: 
+
+    optimal_times = []
+
+    #average each list in optimal_period_T and return the average time for each site
+    print (f"Optimal periods transposed: {optimal_period_T}")
+
+    for periods in optimal_period_T:
+        print (f"Periods: {periods}")
+        optimal_times.append(time_avg(periods))
     
     print ("\n\n-------------")
     print (f"!!!Optimal time!s!!!: {optimal_times}!!!")
 
-
     return sorted_sites, optimal_times, 200
-      
 
 def time_avg(time_list):
     """
@@ -170,14 +193,22 @@ def time_avg(time_list):
         str: Average time in the format YYYY-MM-DDTHH:MM:SS
     """
 
+    if np.any(np.array(time_list) == 0):
+        return 0
+    if np.any(np.array(time_list) == None):
+        return None
+    if len(time_list) < 2:
+        return time_list[0]
+    
+
     print (f"Time list: {time_list}")
 
-    times = [t.split("-")[0] for t in time_list]
+    time_pd = pd.to_datetime(time_list, utc=True)
+    time_pd = time_pd.astype(np.int64)  
 
-    datetimes = [np.datetime64(t) for t in times]
-    print (f"Datetimes: {datetimes}")
+    average_time_np = np.average(time_pd)
+    average_time_pd = pd.to_datetime(average_time_np)
 
-    # # Convert time strings to datetime objects
-    # time_list = [np.datetime64(time) for time in time_list]
+    print (f"Average time: {average_time_pd}")
 
-    # print (f"Time list: {time_list}")
+    return str(average_time_pd)
