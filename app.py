@@ -81,7 +81,7 @@ def rank_request():
     comparator_weights = data[0]
     launch = data[1]
 
-    ranked_sites, optimal_times, response_code = Rank.rank(zip_code, search_radius, comparator_weights, launch)
+    ranked_sites, response_code = Rank.rank(zip_code, search_radius, comparator_weights, launch)
 
     if response_code != 200:
         return jsonify({"error": ranked_sites}), response_code
@@ -89,14 +89,11 @@ def rank_request():
     ranked_sites_json = [site.to_json() for site in ranked_sites]
     response = {
         "ranked_sites": ranked_sites_json,
-        "best_times": optimal_times,
         "launch": launch,
         "search_radius": search_radius,
         "zip_code": zip_code
     }, 200
 
-    print (f"!!!Ranked sites: {ranked_sites_json}")
-    print (f"!!!Best times: {optimal_times}")
     return response
 
 @app.route("/api/historical", methods=["GET"])
