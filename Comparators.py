@@ -4,6 +4,8 @@ import numpy as np
 import json
 from functools import cmp_to_key
 
+import pandas as pd
+
 from ForecastData import ForecastData
 from SiteData import SiteData
 
@@ -179,18 +181,56 @@ def compare_sites(
     
     comparator_func = comp_map[which]
 
-    optimal_period_indices = []
+    optimal_periods = []
     
     # Define comparison function for sorting
     def compare(a, b):
         (site_a, forecast_a) = a
         (site_b, forecast_b) = b
         res = comparator_func(launch, site_a, site_b, forecast_a, forecast_b)
-        optimal_period_indices.append(res[1])
+        optimal_periods.append(res[1])
+        # optimal_period_indices.append(time_avg([res[1]]))
         return res[0]
     
     # Sort using the comparator
     sorted_sites = sorted(sites_list, key=cmp_to_key(compare))
+
+    # optimal_avg_period = time_avg(optimal_periods)
+    # print (f"Optimal average period: {optimal_avg_period}")
     
     # Extract the SiteData objects in order
-    return [site for (site, _) in sorted_sites], optimal_period_indices
+    return [site for (site, _) in sorted_sites], optimal_periods
+
+def time_avg(time_list):
+    """
+    Get the average time from a list of times.
+    Args:
+        time_list (list): List of times to average. 
+        ex: [2025-05-08T06:00:00-04:00]
+        form: YYYY-MM-DDTHH:MM:SS-04:00
+    Returns:
+        str: Average time in the format YYYY-MM-DDTHH:MM:SS
+    """
+
+    if np.any(np.array(time_list) == 0):
+        return 0
+    if np.any(np.array(time_list) == None):
+        return None
+    if len(time_list) < 2:
+        return time_list[0]
+    
+    #remove invalid times
+    time_list = [t for t in time_list if t != 0 and t is not None]
+
+    print (f"Time list: {time_list}")
+
+    time_pd = pd.to_datetime(time_list, utc=True)
+    time_pd = time_pd.astype(np.int64)  
+
+    average_time_np = np.average(time_pd)
+    average_time_pd = pd.to_datetime(average_time_np)
+
+    print (f"Average time: {average_time_pd}")
+
+    return str(average_time_pd)
+
