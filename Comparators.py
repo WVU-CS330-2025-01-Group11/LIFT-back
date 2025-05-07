@@ -82,23 +82,6 @@ def waiver_altitude_comparator(launch: dict, site1: SiteData, site2: SiteData, f
     else:
         return 0, 0
 
-def cloud_cover_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
-    """Compare two sites based on cloud cover (lower is better)."""
-    # cloud1 = forecast1.cloud_cover_metric
-    # cloud2 = forecast2.cloud_cover_metric
-
-    # For cloud cover metric we will need to parse the short forecast string
-
-    return 0, 0  # Placeholder for actual cloud cover comparison logic
-
-
-    if cloud1 < cloud2:
-        return -1   # site1 is better (lower cloud cover)
-    elif cloud1 > cloud2:
-        return 1
-    else:
-        return 0
-
 def precipitation_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
     """Compare two sites based on precipitation probability (lower is better)."""
     # avg_precip1 = sum(p.percip_prob for p in forecast1.forecast_periods) / len(forecast1.forecast_periods)
@@ -145,12 +128,11 @@ def temperature_comparator(launch: dict, site1: SiteData, site2: SiteData, forec
     else:
         return 0, 0
 
-valid_comparators = ["Dist", "Temp", "Wind S/", "Cloud Cover", "Precipitation", "Waiver Altitude"]
+valid_comparators = ["Dist", "Temp", "Wind S/", "Precipitation", "Waiver Altitude"]
 comparators = [
     distance_comparator,
     temperature_comparator,
     windspeed_comparator,
-    cloud_cover_comparator,
     precipitation_comparator,
     waiver_altitude_comparator
 ]
@@ -225,7 +207,7 @@ def time_avg(time_list):
     print (f"Time list: {time_list}")
 
     time_pd = pd.to_datetime(time_list, utc=True)
-    time_pd = time_pd.astype(np.int64)  
+    time_pd = time_pd.astype(np.int64)
 
     average_time_np = np.average(time_pd)
     average_time_pd = pd.to_datetime(average_time_np)
