@@ -1,722 +1,632 @@
 [
     {
-        "Prefecture Name":"Tripoli Alaska",
-        "State":"AK",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"AARG: Hutto Launch Site",
+        "Latitude":30.6116319538,
+        "Longitude":-97.4901619405,
+        "State":"TX",
+        "Zip Code":76574,
+        "Waiver Altitude":15000,
+        "Elevation":650,
+        "Website":"http:\/\/www.aarg.org"
     },
     {
-        "Prefecture Name":"SouthEast Alabama Rocketry Society",
+        "Prefecture Name":"Albuquerque Rocket Society",
+        "Latitude":35.3350083333,
+        "Longitude":-106.7594512332,
+        "State":"NM",
+        "Zip Code":87124,
+        "Waiver Altitude":-1,
+        "Elevation":5873,
+        "Website":"http:\/\/www.arsabq.org\/"
+    },
+    {
+        "Prefecture Name":"Apogee Components",
+        "Latitude":38.8800194444,
+        "Longitude":-104.8407111111,
+        "State":"CO",
+        "Zip Code":80907,
+        "Waiver Altitude":-1,
+        "Elevation":6286,
+        "Website":"http:\/\/www.apogeerockets.com"
+    },
+    {
+        "Prefecture Name":"Big Sky Rocketry Association",
+        "Latitude":46.0176329979,
+        "Longitude":-108.5037786008,
+        "State":"MT",
+        "Zip Code":59079,
+        "Waiver Altitude":20000,
+        "Elevation":3271,
+        "Website":"http:\/\/www.bigskyrocketry.org\/"
+    },
+    {
+        "Prefecture Name":"Birmingham Rocket Boys",
+        "Latitude":33.29154,
+        "Longitude":-86.194,
         "State":"AL",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Zip Code":35160,
+        "Waiver Altitude":-1,
+        "Elevation":581,
+        "Website":"http:\/\/birminghamrocketboys.com\/"
     },
     {
-        "Prefecture Name":"Tripoli Birmingham",
-        "State":"AL",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Bluegrass Rocket Society: Hardin County Landfill",
+        "Latitude":37.6980987084,
+        "Longitude":-85.7929735598,
+        "State":"KY",
+        "Zip Code":42701,
+        "Waiver Altitude":-1,
+        "Elevation":886,
+        "Website":"http:\/\/www.bluesrocks.org\/"
     },
     {
-        "Prefecture Name":"Tripoli Huntsville",
-        "State":"AL",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Central Massachusetts Spacemodeling Society",
+        "Latitude":42.5981602054,
+        "Longitude":-71.2073754115,
+        "State":"MA",
+        "Zip Code":1876,
+        "Waiver Altitude":-1,
+        "Elevation":62,
+        "Website":"http:\/\/www.cmass.org"
     },
     {
-        "Prefecture Name":"Tripoli Mars",
-        "State":"AZ",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Champlain Region Model Rocket Club",
+        "Latitude":44.5192388711,
+        "Longitude":-73.0786196663,
+        "State":"VT",
+        "Zip Code":5477,
+        "Waiver Altitude":-1,
+        "Elevation":545,
+        "Website":"http:\/\/www.crmrc.org\/index.shtml"
     },
     {
-        "Prefecture Name":"Tripoli Paradise Valley",
-        "State":"AZ",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"COSROCS Low Power Site",
+        "Latitude":38.9779726361,
+        "Longitude":-104.7740742105,
+        "State":"CO",
+        "Zip Code":80920,
+        "Waiver Altitude":-1,
+        "Elevation":6850,
+        "Website":"http:\/\/www.cosrocs.org"
     },
     {
-        "Prefecture Name":"Tripoli Phoenic (TRAPHX)",
-        "State":"AZ",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"COSROCS Mid Power Site",
+        "Latitude":39.0734139108,
+        "Longitude":-104.4313465631,
+        "State":"CO",
+        "Zip Code":80831,
+        "Waiver Altitude":-1,
+        "Elevation":6886,
+        "Website":"http:\/\/www.cosrocs.org"
     },
     {
-        "Prefecture Name":"Tripoli Tuscon (SARA)",
-        "State":"AZ",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"CRASH Fort Lupton Launch Site",
+        "Latitude":40.10213,
+        "Longitude":-104.7515,
+        "State":"CO",
+        "Zip Code":80465,
+        "Waiver Altitude":-1,
+        "Elevation":5072,
+        "Website":"http:\/\/www.crashonline.org\/"
     },
     {
-        "Prefecture Name":"Tripoli Apple Rocketry",
-        "State":"CA",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Dallas Area Rocket Society: Bob Woodruff Park",
+        "Latitude":33.0252725372,
+        "Longitude":-96.6587289943,
+        "State":"TX",
+        "Zip Code":75074,
+        "Waiver Altitude":-1,
+        "Elevation":531,
+        "Website":"http:\/\/www.dars.org\/index.html"
+    },
+    {
+        "Prefecture Name":"Dallas Area Rocket Society: Frisco",
+        "Latitude":33.1838980658,
+        "Longitude":-96.7756129841,
+        "State":"TX",
+        "Zip Code":75035,
+        "Waiver Altitude":4000,
+        "Elevation":768,
+        "Website":"http:\/\/www.dars.org\/index.html"
+    },
+    {
+        "Prefecture Name":"Delamar Dry Lake Bed",
+        "Latitude":37.3188222222,
+        "Longitude":-114.9484555556,
+        "State":"NV",
+        "Zip Code":89001,
+        "Waiver Altitude":50000,
+        "Elevation":4564,
+        "Website":"http:\/\/www.tripolivegas.com\/"
+    },
+    {
+        "Prefecture Name":"Florida Spacemodeling Association",
+        "Latitude":26.6633333333,
+        "Longitude":-80.4752777778,
+        "State":"FL",
+        "Zip Code":33402,
+        "Waiver Altitude":-1,
+        "Elevation":16,
+        "Website":"http:\/\/communitylink.palmbeachpost.com\/groups\/FSATWP"
+    },
+    {
+        "Prefecture Name":"Garden State Spacemodeling Society of New Jersey",
+        "Latitude":40.5774999628,
+        "Longitude":-74.678504391,
+        "State":"NJ",
+        "Zip Code":8807,
+        "Waiver Altitude":-1,
+        "Elevation":59,
+        "Website":"http:\/\/www.robnee.com\/gsss\/"
+    },
+    {
+        "Prefecture Name":"Halifax Launch Site",
+        "Latitude":40.477525,
+        "Longitude":-76.931505,
+        "State":"PA",
+        "Zip Code":17603,
+        "Waiver Altitude":-1,
+        "Elevation":371,
+        "Website":"http:\/\/www.spaar.org\/"
+    },
+    {
+        "Prefecture Name":"Huntsville Area Rocketry Association",
+        "Latitude":35.4907803104,
+        "Longitude":-85.9555396829,
+        "State":"TN",
+        "Zip Code":37355,
+        "Waiver Altitude":-1,
+        "Elevation":1122,
+        "Website":"http:\/\/www.hararocketry.org\/"
+    },
+    {
+        "Prefecture Name":"Jackson Model Rocketry Club",
+        "Latitude":42.0742024001,
+        "Longitude":-84.2443512092,
+        "State":"MI",
+        "Zip Code":49230,
+        "Waiver Altitude":-1,
+        "Elevation":991,
+        "Website":"www.JMRConline.org"
+    },
+    {
+        "Prefecture Name":"Jackson Model Rocketry Club - Gumbert Field.",
+        "Latitude":42.3624634628,
+        "Longitude":-84.4400723854,
+        "State":"MI",
+        "Zip Code":49201,
+        "Waiver Altitude":-1,
+        "Elevation":981,
+        "Website":"www.JMRConline.org"
+    },
+    {
+        "Prefecture Name":"Jean Dry Lake site",
+        "Latitude":35.788,
+        "Longitude":-115.250361,
+        "State":"NV",
+        "Zip Code":89179,
+        "Waiver Altitude":-1,
+        "Elevation":2776,
+        "Website":"http:\/\/www.tripolivegas.com\/"
+    },
+    {
+        "Prefecture Name":"Kansas City Association of Rocketry",
+        "Latitude":38.540299,
+        "Longitude":-94.5377559184,
+        "State":"MO",
+        "Zip Code":64742,
+        "Waiver Altitude":-1,
+        "Elevation":928,
+        "Website":"http:\/\/www.angelfire.com\/mo2\/kcar\/"
+    },
+    {
+        "Prefecture Name":"Kansas Organization for Spacemodeling",
+        "Latitude":38.391139817,
+        "Longitude":-98.6214579092,
+        "State":"KS",
+        "Zip Code":67530,
+        "Waiver Altitude":-1,
+        "Elevation":1844,
+        "Website":"http:\/\/www.kosmo427.org"
+    },
+    {
+        "Prefecture Name":"Kansas State Fair Ground Parking Lot",
+        "Latitude":38.0765371848,
+        "Longitude":-97.9154928721,
+        "State":"KS",
+        "Zip Code":67502,
+        "Waiver Altitude":-1,
+        "Elevation":1545,
+        "Website":"http:\/\/www.kosmo427.org"
+    },
+    {
+        "Prefecture Name":"Kloudbusters",
+        "Latitude":37.1667531428,
+        "Longitude":-97.7412594873,
+        "State":"KS",
+        "Zip Code":67004,
+        "Waiver Altitude":-1,
+        "Elevation":1270,
+        "Website":"http:\/\/www.kloudbusters.org\/"
+    },
+    {
+        "Prefecture Name":"Maryland Delaware Rocketry Association: Coverdale",
+        "Latitude":38.7208014699,
+        "Longitude":-75.5405228253,
+        "State":"DE",
+        "Zip Code":19933,
+        "Waiver Altitude":-1,
+        "Elevation":33,
+        "Website":"http:\/\/www.mdrocketry.org\/Launches\/Coverdale.html"
+    },
+    {
+        "Prefecture Name":"Maryland Delaware Rocketry Association: Rhodesdale",
+        "Latitude":38.574570491,
+        "Longitude":-75.8501903101,
+        "State":"MD",
+        "Zip Code":21659,
+        "Waiver Altitude":-1,
+        "Elevation":43,
+        "Website":"http:\/\/www.mdrocketry.org\/Launches\/Rhodesdale.html"
+    },
+    {
+        "Prefecture Name":"Maryland Delaware Rocketry Association: Higgs Farm",
+        "Latitude":39.0835142632,
+        "Longitude":-75.874656641,
+        "State":"MD",
+        "Zip Code":21644,
+        "Waiver Altitude":16900,
+        "Elevation":59,
+        "Website":"http:\/\/www.mdrocketry.org\/Launches\/HiggsFarm.html"
+    },
+    {
+        "Prefecture Name":"Maryland Delaware Rocketry Association: Sod Farm",
+        "Latitude":38.999006939,
+        "Longitude":-76.1047791442,
+        "State":"MD",
+        "Zip Code":21617,
+        "Waiver Altitude":-1,
+        "Elevation":59,
+        "Website":"http:\/\/www.mdrocketry.org\/Launches\/SodFarm.html"
+    },
+    {
+        "Prefecture Name":"Michiana Rocketry",
+        "Latitude":41.7772618405,
+        "Longitude":-86.57676014,
+        "State":"MI",
+        "Zip Code":49128,
+        "Waiver Altitude":12000,
+        "Elevation":692,
+        "Website":"http:\/\/www.michianarocketry.org\/"
+    },
+    {
+        "Prefecture Name":"Mid-South Rocket Society",
+        "Latitude":35.1436533743,
+        "Longitude":-89.8468200528,
+        "State":"TN",
+        "Zip Code":38134,
+        "Waiver Altitude":-1,
+        "Elevation":246,
+        "Website":"http:\/\/www.midsouthrockets.com"
+    },
+    {
+        "Prefecture Name":"NARHAMS",
+        "Latitude":39.3796845728,
+        "Longitude":-77.2084551719,
+        "State":"MD",
+        "Zip Code":21771,
+        "Waiver Altitude":-1,
+        "Elevation":653,
+        "Website":"http:\/\/www.narhams.org\/"
+    },
+    {
+        "Prefecture Name":"Northern Virginia Association of Rocketry",
+        "Latitude":38.8384779428,
+        "Longitude":-77.797018545,
+        "State":"VA",
+        "Zip Code":20198,
+        "Waiver Altitude":4500,
+        "Elevation":571,
+        "Website":"http:\/\/www.novaar.org\/"
+    },
+    {
+        "Prefecture Name":"Oregon Rocketry",
+        "Latitude":45.0455415974,
+        "Longitude":-123.3131414403,
+        "State":"OR",
+        "Zip Code":97101,
+        "Waiver Altitude":20460,
+        "Elevation":4500,
+        "Website":"http:\/\/www.oregonrocketry.com"
+    },
+    {
+        "Prefecture Name":"Oregon Rocketry: Sheridan Site",
+        "Latitude":43.7983141411,
+        "Longitude":-120.648138698,
+        "State":"OR",
+        "Zip Code":97712,
+        "Waiver Altitude":5400,
+        "Elevation":4531,
+        "Website":"http:\/\/www.oregonrocketry.com\/"
+    },
+    {
+        "Prefecture Name":"Pittsburgh Space Command: Camp Lutherlyn",
+        "Latitude":40.8787569449,
+        "Longitude":-80.0360616334,
+        "State":"PA",
+        "Zip Code":16052,
+        "Waiver Altitude":3850,
+        "Elevation":1293,
+        "Website":"http:\/\/www.psc473.org\/"
+    },
+    {
+        "Prefecture Name":"Rocketry Of Central Carolina",
+        "Latitude":35.1953068979,
+        "Longitude":-80.5077305684,
+        "State":"NC",
+        "Zip Code":28107,
+        "Waiver Altitude":-1,
+        "Elevation":466,
+        "Website":"http:\/\/www.rocketrycarolina.org"
+    },
+    {
+        "Prefecture Name":"Rocketry of Orlando's Community Kids",
+        "Latitude":28.6860055556,
+        "Longitude":-81.159307033,
+        "State":"FL",
+        "Zip Code":32765,
+        "Waiver Altitude":2000,
+        "Elevation":1060,
+        "Website":"http:\/\/www.r-o-c-k.org\/"
+    },
+    {
+        "Prefecture Name":"SCORE High Power Site",
+        "Latitude":38.1545037497,
+        "Longitude":-104.806901052,
+        "State":"CO",
+        "Zip Code":81005,
+        "Waiver Altitude":12000,
+        "Elevation":5453,
+        "Website":"http:\/\/www.scronline.net\/"
+    },
+    {
+        "Prefecture Name":"Southern Area Rocketry",
+        "Latitude":33.9735348863,
+        "Longitude":-84.2671612704,
+        "State":"GA",
+        "Zip Code":30022,
+        "Waiver Altitude":-1,
+        "Elevation":876,
+        "Website":"http:\/\/www.soar571.com"
+    },
+    {
+        "Prefecture Name":"Southern Area Rocketry",
+        "Latitude":34.11975,
+        "Longitude":-84.37451,
+        "State":"GA",
+        "Zip Code":30188,
+        "Waiver Altitude":-1,
+        "Elevation":899,
+        "Website":"http:\/\/www.soar571.com\/"
+    },
+    {
+        "Prefecture Name":"Southern Colorado Rocketeers",
+        "Latitude":38.2841666667,
+        "Longitude":-104.7794444444,
+        "State":"CO",
+        "Zip Code":81007,
+        "Waiver Altitude":12000,
+        "Elevation":4938,
+        "Website":"http:\/\/www.scronline.net\/"
+    },
+    {
+        "Prefecture Name":"Southern Pennsylvania Area Association of Rocketry",
+        "Latitude":40.4177686816,
+        "Longitude":-76.6073233018,
+        "State":"PA",
+        "Zip Code":17028,
+        "Waiver Altitude":-1,
+        "Elevation":466,
+        "Website":"http:\/\/www.spaar.org\/"
+    },
+    {
+        "Prefecture Name":"Southwest Michigan Assoc of Spacemodeling Hobbyists",
+        "Latitude":42.4605925334,
+        "Longitude":-85.4413748106,
+        "State":"MI",
+        "Zip Code":49046,
+        "Waiver Altitude":-1,
+        "Elevation":955,
+        "Website":"http:\/\/www.homestead.com\/smashnar500\/index.html"
+    },
+    {
+        "Prefecture Name":"Spaceport Rocketry Association",
+        "Latitude":27.9424307547,
+        "Longitude":-80.7171384465,
+        "State":"FL",
+        "Zip Code":32908,
+        "Waiver Altitude":-1,
+        "Elevation":26,
+        "Website":"http:\/\/spaceportrocketry.org\/"
+    },
+    {
+        "Prefecture Name":"Spaceport Sheboygan Loki Site",
+        "Latitude":43.7462900534,
+        "Longitude":-87.7044904886,
+        "State":"WI",
+        "Zip Code":53081,
+        "Waiver Altitude":-1,
+        "Elevation":574,
+        "Website":"http:\/\/www.rockets4schools.org\/"
+    },
+    {
+        "Prefecture Name":"THOR Launch Site",
+        "Latitude":40.3804,
+        "Longitude":-96.6014055556,
+        "State":"NE",
+        "Zip Code":68422,
+        "Waiver Altitude":8600,
+        "Elevation":1400,
+        "Website":"https:\/\/www.nebraskarocketry.com\/"
+    },
+    {
+        "Prefecture Name":"Tri-City Sky Buster: Amherst Site",
+        "Latitude":41.34075767,
+        "Longitude":-82.3180791587,
+        "State":"OH",
+        "Zip Code":44001,
+        "Waiver Altitude":5200,
+        "Elevation":794,
+        "Website":"http:\/\/www.skybusters.org\/"
     },
     {
         "Prefecture Name":"Tripoli Central California",
+        "Latitude":36.531941141,
+        "Longitude":-120.025881272,
         "State":"CA",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Zip Code":93656,
+        "Waiver Altitude":17000,
+        "Elevation":161,
+        "Website":"www.tccrockets.com"
     },
     {
-        "Prefecture Name":"Tripoli Mavericks",
-        "State":"CA",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Mojave Desert Advanced Rocket Soc.",
-        "State":"CA",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Northern California (Aero-Pac)",
-        "State":"CA",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli ROC",
-        "State":"CA",
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli San Diego",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Colorado",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Northern Colorado",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Southern Colorado",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Southwest Colorado",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli SE Connecticut",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Fort Meyers",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Space Coast",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Tampa",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Atlanta",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Hawaii",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Iowa (Iowa Soc of Amateur Rocketeers)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Eastern Idaho (HiDRA)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Tripoli Colorado: Hartsel Site",
+        "Latitude":39.0174768087,
+        "Longitude":-105.7050280451,
+        "State":"CO",
+        "Zip Code":80449,
+        "Waiver Altitude":14200,
+        "Elevation":8770,
+        "Website":"http:\/\/www.tripolicolorado.org\/"
     },
     {
         "Prefecture Name":"Tripoli Idaho",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Central Illinois",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Chicago",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli DeKalb",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Quad Cities",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripli Fort Wayne",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Indiana",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Kansas (Kloudbusters)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":67004.0,
-        "Elevation":1249.0
-    },
-    {
-        "Prefecture Name":"Tripoli Kentucky",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Louisiana",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Maryland (MDRA)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":21640.0,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Cherryfield",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Jackson",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Michiana",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tropoli Michigan Team-1",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Minnesota",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Muskegon",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Southern Minnesota",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"St Louis Rocketry Association",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Missouri",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Mo-Kan",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Latitude":43.3638888889,
+        "Longitude":-114.8902777778,
+        "State":"ID",
+        "Zip Code":83327,
+        "Waiver Altitude":20000,
+        "Elevation":5062,
+        "Website":"http:\/\/www.tripoliidaho.org"
     },
     {
         "Prefecture Name":"Tripoli Montana",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Latitude":45.5495,
+        "Longitude":-112.5107,
+        "State":"MT",
+        "Zip Code":59754,
+        "Waiver Altitude":25000,
+        "Elevation":5607,
+        "Website":"http:\/\/www.tripolimontana.org\/"
     },
     {
-        "Prefecture Name":"Tripoli Charlotte",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Tripoli Oklahoma",
+        "Latitude":35.1726919513,
+        "Longitude":-99.6566314255,
+        "State":"OK",
+        "Zip Code":73662,
+        "Waiver Altitude":16094,
+        "Elevation":1936,
+        "Website":"http:\/\/tripolioklahoma.org\/"
     },
     {
-        "Prefecture Name":"Tripoli East North Carolina",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Tripoli Rocketry of Louisiana",
+        "Latitude":32.2084536962,
+        "Longitude":-91.8570142399,
+        "State":"LA",
+        "Zip Code":71259,
+        "Waiver Altitude":-1,
+        "Elevation":69,
+        "Website":"http:\/\/www.tra-la.org\/"
     },
     {
-        "Prefecture Name":"Tripoli North Carolina",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Tripoli South Carolina",
+        "Latitude":33.4571677902,
+        "Longitude":-80.7432045712,
+        "State":"SC",
+        "Zip Code":29115,
+        "Waiver Altitude":-1,
+        "Elevation":164,
+        "Website":"http:\/\/www.roscoweb.org"
     },
     {
-        "Prefecture Name":"Tripoli Nebraska",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Tripoli Southern Minnesota",
+        "Latitude":43.7453710885,
+        "Longitude":-93.1499390064,
+        "State":"MN",
+        "Zip Code":56045,
+        "Waiver Altitude":-1,
+        "Elevation":1214,
+        "Website":"http:\/\/www.tsmrockets.com\/"
     },
     {
-        "Prefecture Name":"Tripoli North Jersey",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Tripoli West Virginia",
+        "Latitude":38.0459766196,
+        "Longitude":-79.2661190729,
+        "State":"VA",
+        "Zip Code":24459,
+        "Waiver Altitude":-1,
+        "Elevation":2675,
+        "Website":"http:\/\/www.valleyaerospace.com\/"
     },
     {
-        "Prefecture Name":"Tripoli 4 Corners (4 Corners Rocketry Assoc.)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Tulsa Rocketry",
+        "Latitude":35.9323194748,
+        "Longitude":-95.7850281287,
+        "State":"OK",
+        "Zip Code":74008,
+        "Waiver Altitude":1500,
+        "Elevation":587,
+        "Website":"http:\/\/www.tulsarocketry.org"
     },
     {
-        "Prefecture Name":"Tripoli Las Cruces",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Vikings Rocket Society - Richmond, VA",
+        "Latitude":37.6487351556,
+        "Longitude":-77.3090356516,
+        "State":"VA",
+        "Zip Code":23116,
+        "Waiver Altitude":-1,
+        "Elevation":180,
+        "Website":"http:\/\/www.vikingsrocketsociety.org"
     },
     {
-        "Prefecture Name":"Tripoli White Sands",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Washington Aerospace Club",
+        "Latitude":47.8179197179,
+        "Longitude":-119.6557092268,
+        "State":"WA",
+        "Zip Code":98830,
+        "Waiver Altitude":-1,
+        "Elevation":2247,
+        "Website":"http:\/\/www.washingtonaerospace.org"
     },
     {
-        "Prefecture Name":"Tripoli Albuquerque",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"White's Farm Durham CT",
+        "Latitude":41.6760138889,
+        "Longitude":-71.8465972222,
+        "State":"CT",
+        "Zip Code":6354,
+        "Waiver Altitude":3000,
+        "Elevation":623,
+        "Website":"http:\/\/www.catorockets.org\/"
     },
     {
-        "Prefecture Name":"Tripoli Gerlach",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"Wisconsin Organization of Spacemodeling Hobbyists: Bong Site",
+        "Latitude":42.6287646866,
+        "Longitude":-88.1708921048,
+        "State":"WI",
+        "Zip Code":53105,
+        "Waiver Altitude":10000,
+        "Elevation":794,
+        "Website":"http:\/\/www.wooshrocketry.org\/"
     },
     {
-        "Prefecture Name":"Tripoli Las Vegas",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Reno",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Albany",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Upstate New York (URRG)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":14527.0,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Mid-Ohio",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":45368.0,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripli Northern Ohio",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tropli Oaklahoma",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Tulsa",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Oregon Central",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Portland (OROC)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Pittsburgh",
-        "State":"PA",
-        "Latitude":39.93534,
-        "Longitude":-79.92406,
-        "Zip Code":15410.0,
-        "Elevation":1106.0
-    },
-    {
-        "Prefecture Name":"Tripoli South Carolina (ICBM)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Tennessee (Music City Missile Club)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Central Texas",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Hill County",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Houston",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli North Texas",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Panhandle of Texas",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli West Texas",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Mars Desert Research Station",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Southern Utah (SUROC)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Utah (UROC)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripooli Central Virginia (TVC)",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli East Virginia",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli New River Valley Rocketry",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Western Virginia",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Puget Sound",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Southeast Washington",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Green Bay",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"Tripoli Wisconsin",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
-    },
-    {
-        "Prefecture Name":"South East Iowa Tripoli Rocketry Association",
-        "State":null,
-        "Latitude":null,
-        "Longitude":null,
-        "Zip Code":null,
-        "Elevation":null
+        "Prefecture Name":"WVSOAR Launch Site",
+        "Latitude":38.8784590316,
+        "Longitude":-82.3684277429,
+        "State":"OH",
+        "Zip Code":45614,
+        "Waiver Altitude":-1,
+        "Elevation":587,
+        "Website":"http:\/\/www.wvsoar.org"
     }
 ]

@@ -32,18 +32,16 @@ def distance_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast
 
     site_coords1 = np.array([site1.latitude, site1.longitude])
     site_coords2 = np.array([site2.latitude, site2.longitude])
-    
-    
-    
+
     distance1 = haversine(launch_coords[0], launch_coords[1], site_coords1[0], site_coords1[1])
     distance2 = haversine(launch_coords[0], launch_coords[1], site_coords2[0], site_coords2[1])
     
     if distance1 < distance2:
-        return -1, 0  # site1 is better (closer)
+        return -1  # site1 is better (closer)
     elif distance1 > distance2:
-        return 1, 0   # site2 is better
+        return 1   # site2 is better
     else:
-        return 0, 0
+        return 0
 
 def windspeed_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
     """Compare two sites based on average wind speed (lower is better)."""
@@ -60,7 +58,6 @@ def windspeed_comparator(launch: dict, site1: SiteData, site2: SiteData, forecas
     norm_low2 = np.linalg.norm(low_speeds2, ord=p)
     norm_high2 = np.linalg.norm(high_speeds2, ord=p)
 
-    
     low_weight = 0.2
     high_weight = 0.8
 
@@ -68,15 +65,12 @@ def windspeed_comparator(launch: dict, site1: SiteData, site2: SiteData, forecas
     avg_wind1 = low_weight * norm_low1 + high_weight * norm_high1
     avg_wind2 = low_weight * norm_low2 + high_weight * norm_high2
    
-    
     if avg_wind1 < avg_wind2:
-        optimal_period = forecast1.forecast_periods[low_speeds1.index(min(low_speeds1))].start
-        return -1, optimal_period  # site1 is better (lower wind speed)
+        return -1  # site1 is better (lower wind speed)
     elif avg_wind1 > avg_wind2:
-        optimal_period = forecast2.forecast_periods[low_speeds2.index(min(low_speeds2))].start
-        return 1, optimal_period  # site2 is better
+        return 1  # site2 is better
     else:
-        return 0, 0
+        return 0
 
 def waiver_altitude_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
     """Compare two sites based on maximum waiver altitude (higher is better)."""
@@ -84,16 +78,14 @@ def waiver_altitude_comparator(launch: dict, site1: SiteData, site2: SiteData, f
     waiver2 = site2.max_waiver_altitude
     
     if waiver1 > waiver2:
-        return -1, 0   # site1 is better (higher waiver altitude)
+        return -1   # site1 is better (higher waiver altitude)
     elif waiver1 < waiver2:
-        return 1, 0
+        return 1
     else:
-        return 0, 0
+        return 0
 
 def precipitation_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
     """Compare two sites based on precipitation probability (lower is better)."""
-    
-
     precip_probs1 = [float(p.percip_prob) for p in forecast1.forecast_periods]
     precip_probs2 = [float(p.percip_prob) for p in forecast2.forecast_periods]
 
@@ -101,21 +93,16 @@ def precipitation_comparator(launch: dict, site1: SiteData, site2: SiteData, for
     avg_precip1 = np.linalg.norm(precip_probs1, ord=p)
     avg_precip2 = np.linalg.norm(precip_probs2, ord=p)
     
-    if avg_precip1 < avg_precip2:
-        
-        optimal_period = forecast1.forecast_periods[precip_probs1.index(min(precip_probs1))].start
-        return -1, optimal_period  # site1 is better (lower precipitation probability)
-    elif avg_precip1 > avg_precip2:
-        
-        optimal_period = forecast2.forecast_periods[precip_probs2.index(min(precip_probs2))].start
-        return 1, optimal_period  # site2 is better
+    if avg_precip1 < avg_precip2:        
+        return -1  # site1 is better (lower precipitation probability)
+    elif avg_precip1 > avg_precip2:        
+        return 1  # site2 is better
     else:
-        return 0, 0
+        return 0
 
 def temperature_comparator(launch: dict, site1: SiteData, site2: SiteData, forecast1: ForecastData, forecast2: ForecastData) -> float:
     """Compare two sites based on temperature (lower is better)."""
-    
-    
+
     temps1 = [float(p.temperature) for p in forecast1.forecast_periods]
     temps2 = [float(p.temperature) for p in forecast2.forecast_periods]
 
@@ -124,15 +111,11 @@ def temperature_comparator(launch: dict, site1: SiteData, site2: SiteData, forec
     avg_temp2 = np.linalg.norm(temps2, ord=p)
 
     if avg_temp1 < avg_temp2:
-       
-        optimal_period = forecast1.forecast_periods[temps1.index(min(temps1))].start
-        return -1, optimal_period  # site1 is better (lower temperature)
+        return -1  # site1 is better (lower temperature)
     elif avg_temp1 > avg_temp2:
-        
-        optimal_period = forecast2.forecast_periods[temps2.index(min(temps2))].start
-        return 1, optimal_period
+        return 1
     else:
-        return 0, 0
+        return 0
 
 valid_comparators = ["Dist", "Temp", "Wind S/", "Precipitation", "Waiver Altitude"]
 comparators = [
@@ -176,48 +159,11 @@ def compare_sites(
         (site_a, forecast_a) = a
         (site_b, forecast_b) = b
         res = comparator_func(launch, site_a, site_b, forecast_a, forecast_b)
-        optimal_periods.append(res[1])
         # optimal_period_indices.append(time_avg([res[1]]))
-        return res[0]
+        return res
     
     # Sort using the comparator
     sorted_sites = sorted(sites_list, key=cmp_to_key(compare))
 
-    
-    
     # Extract the SiteData objects in order
-    return [site for (site, _) in sorted_sites], optimal_periods
-
-def time_avg(time_list):
-    """
-    Get the average time from a list of times.
-    Args:
-        time_list (list): List of times to average. 
-        ex: [2025-05-08T06:00:00-04:00]
-        form: YYYY-MM-DDTHH:MM:SS-04:00
-    Returns:
-        str: Average time in the format YYYY-MM-DDTHH:MM:SS
-    """
-
-    if np.any(np.array(time_list) == 0):
-        return 0
-    if np.any(np.array(time_list) == None):
-        return None
-    if len(time_list) < 2:
-        return time_list[0]
-    
-    #remove invalid times
-    time_list = [t for t in time_list if t != 0 and t is not None]
-
-    print (f"Time list: {time_list}")
-
-    time_pd = pd.to_datetime(time_list, utc=True)
-    time_pd = time_pd.astype(np.int64)
-
-    average_time_np = np.average(time_pd)
-    average_time_pd = pd.to_datetime(average_time_np)
-
-    print (f"Average time: {average_time_pd}")
-
-    return str(average_time_pd)
-
+    return [site for (site, _) in sorted_sites]
