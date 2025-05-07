@@ -16,7 +16,8 @@ app = Flask(__name__)
 # get cors working
 CORS(app)
 
-CORS(app, resources={r"/*": {"origins": "*"}})
+frontend_url = os.environ.get('FRONTEND_URL', 'https://yellow-river-000fe9d0f.6.azurestaticapps.net')
+CORS(app, resources={r"/*": {"origins": "frontend_url"}})
 
 # Initialize clients
 forecast_client = ForecastDataClient()
